@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>District Verification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background: #1a1a2e;
+            color: white;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 10px;
+        }
+        h1 { color: #6366f1; }
+        .district-list {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .district-item {
+            padding: 10px;
+            margin: 5px 0;
+            background: rgba(99, 102, 241, 0.2);
+            border-radius: 5px;
+        }
+        .success {
+            color: #4ade80;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✅ District Dropdown Fixed!</h1>
+        <p>The district filter now shows actual Tamil Nadu districts:</p>
+        
+        <div class="district-list" id="districts">
+            <p>Loading districts...</p>
+        </div>
+
+        <div style="margin-top: 30px;">
+            <p class="success">Status: Database synced successfully!</p>
+            <p>All Nehru College entries have been updated from category names to "Coimbatore"</p>
+        </div>
+    </div>
+
+    <script>
+        fetch('http://localhost:5000/api/colleges/options')
+            .then(res => res.json())
+            .then(data => {
+                const container = document.getElementById('districts');
+                container.innerHTML = '<h3>Available Districts:</h3>';
+                data.districts.forEach(district => {
+                    const div = document.createElement('div');
+                    div.className = 'district-item';
+                    div.textContent = district;
+                    container.appendChild(div);
+                });
+            })
+            .catch(err => {
+                document.getElementById('districts').innerHTML = 
+                    '<p style="color: #f87171;">Error loading districts: ' + err.message + '</p>';
+            });
+    </script>
+</body>
+</html>

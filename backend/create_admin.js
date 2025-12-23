@@ -12,8 +12,8 @@ async function createAdmin() {
     database: process.env.DB_NAME || 'college_agency_db'
   });
 
-  const username = 'admin';
-  const password = 'admin123';
+  const username = 'hari1vkp';
+  const password = 'hari@2025';
   const hashedPassword = await bcrypt.hash(password, 10);
 
   console.log(`Creating admin user...`);

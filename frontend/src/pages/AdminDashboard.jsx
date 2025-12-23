@@ -17,7 +17,7 @@ function AdminDashboard() {
     // Basic auth check logic (In real app verify token)
     const admin = localStorage.getItem('admin');
     if (!admin) navigate('/admin/login');
-    
+
     fetchColleges();
     fetchEnquiries();
   }, []);
@@ -53,7 +53,7 @@ function AdminDashboard() {
   };
 
   const handleDelete = async (id) => {
-    if(!window.confirm('Are you sure?')) return;
+    if (!window.confirm('Are you sure?')) return;
     try {
       await axios.delete(`http://localhost:5000/api/admin/colleges/${id}`);
       fetchColleges();
@@ -63,47 +63,80 @@ function AdminDashboard() {
   };
 
   return (
-    <div className="container">
-      <div className="glass" style={{ padding: '2rem' }}>
-        <h1 style={{ marginBottom: '2rem' }}>Admin Dashboard</h1>
-        
-        <div style={{ marginBottom: '2rem' }}>
-          <button 
-            className={`btn ${activeTab === 'colleges' ? 'btn-primary' : ''}`} 
-            style={{ marginRight: '1rem', background: activeTab !== 'colleges' ? 'transparent' : null }}
+    <div className="container animate-fade-in">
+      <div className="glass" style={{ padding: '3rem', minHeight: '600px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
+          <h1 style={{ margin: 0 }} className="gradient-text">Admin Dashboard</h1>
+          <button
+            className="btn btn-outline"
+            onClick={() => { localStorage.removeItem('admin'); navigate('/admin/login'); }}
+            style={{ fontSize: '0.85rem' }}
+          >
+            Logout session
+          </button>
+        </div>
+
+        <div style={{ display: 'flex', gap: '1rem', marginBottom: '3rem', borderBottom: '1px solid var(--glass-border)', paddingBottom: '1rem' }}>
+          <button
+            className={`btn ${activeTab === 'colleges' ? 'btn-primary' : 'btn-outline'}`}
+            style={{ border: activeTab === 'colleges' ? 'none' : '1px solid transparent' }}
             onClick={() => setActiveTab('colleges')}
           >
-            Manage Colleges
+            🏫 Manage Colleges
           </button>
-          <button 
-            className={`btn ${activeTab === 'enquiries' ? 'btn-primary' : ''}`}
-            style={{ background: activeTab !== 'enquiries' ? 'transparent' : null }}
+          <button
+            className={`btn ${activeTab === 'enquiries' ? 'btn-primary' : 'btn-outline'}`}
+            style={{ border: activeTab === 'enquiries' ? 'none' : '1px solid transparent' }}
             onClick={() => setActiveTab('enquiries')}
           >
-            View Enquiries
+            📩 View Enquiries
           </button>
         </div>
 
         {activeTab === 'colleges' && (
-          <div>
-            <h3>Add New College</h3>
-            <form onSubmit={handleCreateCollege} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '2rem' }}>
-              <input placeholder="College Name" value={newCollege.college_name} onChange={e => setNewCollege({...newCollege, college_name: e.target.value})} required />
-              <input placeholder="Degree (e.g., BCA)" value={newCollege.degree} onChange={e => setNewCollege({...newCollege, degree: e.target.value})} required />
-              <input placeholder="District" value={newCollege.district} onChange={e => setNewCollege({...newCollege, district: e.target.value})} required />
-              <input type="number" placeholder="Fees" value={newCollege.fees} onChange={e => setNewCollege({...newCollege, fees: e.target.value})} required />
-              <textarea style={{ gridColumn: '1/-1' }} placeholder="Description" value={newCollege.description} onChange={e => setNewCollege({...newCollege, description: e.target.value})} />
-              <button className="btn btn-primary" style={{ gridColumn: '1/-1' }}>Add College</button>
+          <div className="animate-fade-in">
+            <h3 style={{ marginBottom: '1.5rem' }}>Add New Institute</h3>
+            <form onSubmit={handleCreateCollege} className="glass" style={{ padding: '2rem', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem', marginBottom: '4rem', background: 'rgba(255,255,255,0.02)' }}>
+              <div>
+                <label>College Name</label>
+                <input placeholder="University of Technology" value={newCollege.college_name} onChange={e => setNewCollege({ ...newCollege, college_name: e.target.value })} required />
+              </div>
+              <div>
+                <label>Degree Available</label>
+                <input placeholder="e.g. BCA, B.Tech" value={newCollege.degree} onChange={e => setNewCollege({ ...newCollege, degree: e.target.value })} required />
+              </div>
+              <div>
+                <label>Located District</label>
+                <input placeholder="e.g. Bangalore" value={newCollege.district} onChange={e => setNewCollege({ ...newCollege, district: e.target.value })} required />
+              </div>
+              <div>
+                <label>Annual Fees (₹)</label>
+                <input type="number" placeholder="95000" value={newCollege.fees} onChange={e => setNewCollege({ ...newCollege, fees: e.target.value })} required />
+              </div>
+              <div style={{ gridColumn: '1/-1' }}>
+                <label>Institute Description</label>
+                <textarea rows="4" placeholder="Briefly describe the campus, facilities and ranking..." value={newCollege.description} onChange={e => setNewCollege({ ...newCollege, description: e.target.value })} />
+              </div>
+              <button className="btn btn-primary" style={{ gridColumn: '1/-1', padding: '1rem' }}>Deploy New College Listing</button>
             </form>
 
-            <h3>Existing Colleges</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <h3 style={{ marginBottom: '1.5rem' }}>Active Listings ({colleges.length})</h3>
+            <div style={{ display: 'grid', gap: '1rem' }}>
               {colleges.map(c => (
-                <div key={c.college_id} style={{ display: 'flex', justifyContent: 'space-between', padding: '1rem', background: 'rgba(0,0,0,0.2)', borderRadius: '0.5rem' }}>
+                <div key={c.college_id} className="glass" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.25rem 2rem', background: 'rgba(255,255,255,0.03)' }}>
                   <div>
-                    <strong>{c.college_name}</strong> - {c.degree} ({c.district})
+                    <span style={{ fontWeight: '700', fontSize: '1.1rem' }}>{c.college_name}</span>
+                    <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
+                      {c.degree} • {c.district} • <span style={{ color: 'white' }}>₹{c.fees.toLocaleString()}</span>
+                    </div>
                   </div>
-                  <button onClick={() => handleDelete(c.college_id)} style={{ color: '#ef4444', background: 'none', border: 'none', cursor: 'pointer' }}>Delete</button>
+                  <button
+                    onClick={() => handleDelete(c.college_id)}
+                    className="btn btn-outline"
+                    style={{ color: '#f87171', borderColor: 'rgba(248, 113, 113, 0.2)', padding: '0.5rem 1rem', fontSize: '0.8rem' }}
+                  >
+                    Remove
+                  </button>
                 </div>
               ))}
             </div>
@@ -111,37 +144,51 @@ function AdminDashboard() {
         )}
 
         {activeTab === 'enquiries' && (
-          <div>
-            <h3>Student Enquiries</h3>
-            <div style={{ overflowX: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1rem' }}>
-                <thead>
-                  <tr style={{ textAlign: 'left', borderBottom: '1px solid var(--glass-border)' }}>
-                    <th style={{ padding: '1rem' }}>Date</th>
-                    <th style={{ padding: '1rem' }}>Student</th>
-                    <th style={{ padding: '1rem' }}>Contact</th>
-                    <th style={{ padding: '1rem' }}>Target College</th>
-                    <th style={{ padding: '1rem' }}>Degree</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {enquiries.map(e => (
-                    <tr key={e.enquiry_id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                      <td style={{ padding: '1rem' }}>{new Date(e.enquiry_date).toLocaleDateString()}</td>
-                      <td style={{ padding: '1rem' }}>{e.student_name}</td>
-                      <td style={{ padding: '1rem' }}>{e.phone}<br/><small style={{color:'gray'}}>{e.email}</small></td>
-                      <td style={{ padding: '1rem' }}>{e.college_name || 'N/A'}</td>
-                      <td style={{ padding: '1rem' }}>{e.interested_degree}</td>
+          <div className="animate-fade-in">
+            <h3 style={{ marginBottom: '1.5rem' }}>Student Interest Pipeline</h3>
+            <div className="glass" style={{ overflow: 'hidden', background: 'rgba(255,255,255,0.02)' }}>
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                  <thead>
+                    <tr style={{ textAlign: 'left', background: 'rgba(255,255,255,0.05)' }}>
+                      <th style={{ padding: '1.25rem' }}>Date Received</th>
+                      <th style={{ padding: '1.25rem' }}>Student Profile</th>
+                      <th style={{ padding: '1.25rem' }}>Contact Info</th>
+                      <th style={{ padding: '1.25rem' }}>Target Institute</th>
+                      <th style={{ padding: '1.25rem' }}>Program</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {enquiries.length > 0 ? enquiries.map(e => (
+                      <tr key={e.enquiry_id} style={{ borderTop: '1px solid var(--glass-border)' }}>
+                        <td style={{ padding: '1.25rem' }}>{new Date(e.enquiry_date).toLocaleDateString()}</td>
+                        <td style={{ padding: '1.25rem', fontWeight: 'bold' }}>{e.student_name}</td>
+                        <td style={{ padding: '1.25rem' }}>
+                          <div>{e.phone}</div>
+                          <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>{e.email}</div>
+                        </td>
+                        <td style={{ padding: '1.25rem' }}>{e.college_name || 'N/A'}</td>
+                        <td style={{ padding: '1.25rem' }}>
+                          <span className="badge">{e.interested_degree}</span>
+                        </td>
+                      </tr>
+                    )) : (
+                      <tr>
+                        <td colSpan="5" style={{ padding: '4rem', textAlign: 'center', color: 'var(--text-secondary)' }}>
+                          No enquiries found in the system yet.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         )}
       </div>
     </div>
   );
+
 }
 
 export default AdminDashboard;
