@@ -15,13 +15,19 @@ function Home() {
   const [districts, setDistricts] = useState([]);
   const [degrees, setDegrees] = useState([]);
 
+  // New State for Category Feature
+  const [showCategories, setShowCategories] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [activeLevel, setActiveLevel] = useState(null); // 'UG' or 'PG'
+  const [selectedCategory, setSelectedCategory] = useState(null); // Track selected category
+
   useEffect(() => {
     fetchOptions();
   }, []);
 
   useEffect(() => {
     fetchColleges();
-  }, [filters]);
+  }, [filters, activeLevel, selectedCategory]);
 
   const fetchOptions = async () => {
     try {
@@ -42,9 +48,61 @@ function Home() {
       params.append('maxFee', filters.maxFee);
 
       const res = await axios.get(`http://localhost:5000/api/colleges/filter?${params.toString()}`);
-      setColleges(res.data);
+
+      let data = res.data;
+
+      // Client-side filtering for UG/PG if active
+      if (activeLevel === 'UG') {
+        data = data.filter(c => c.degree.startsWith('B')); // Approx logic for UG
+      } else if (activeLevel === 'PG') {
+        data = data.filter(c => c.degree.startsWith('M')); // Approx logic for PG
+      }
+
+      // Client-side filtering for Selected Category
+      if (selectedCategory) {
+        data = data.filter(c => {
+          const name = c.college_name || '';
+          const desc = c.description || '';
+
+          if (selectedCategory === 'Engineering') {
+            return name.includes('Engineering') || name.includes('Technology') || desc.includes('Engineering');
+          }
+          if (selectedCategory === 'Medical') {
+            return name.includes('Medical') || name.includes('Hospital') || name.includes('Nursing');
+          }
+          if (selectedCategory === 'Management') {
+            return desc.includes('Category: Management') || name.includes('Management') || c.degree.includes('BBA') || c.degree.includes('MBA');
+          }
+          if (selectedCategory === 'Arts & Science') {
+            return desc.includes('Category: Science') || desc.includes('Category: Commerce') || desc.includes('Category: Arts') || desc.includes('Category: Media') || c.degree.includes('B.Sc') || c.degree.includes('B.A') || c.degree.includes('B.Com');
+          }
+          return false;
+        });
+      }
+
+      setColleges(data);
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  const handleCategoryClick = async () => {
+    if (!showCategories) {
+      try {
+        const res = await axios.get('http://localhost:5000/api/colleges/categories');
+        setCategories(res.data);
+      } catch (err) {
+        console.error('Error fetching categories:', err);
+      }
+    }
+    setShowCategories(!showCategories);
+  };
+
+  const selectCategory = (categoryName) => {
+    if (selectedCategory === categoryName) {
+      setSelectedCategory(null); // Deselect if already selected
+    } else {
+      setSelectedCategory(categoryName);
     }
   };
 
@@ -54,6 +112,65 @@ function Home() {
       <div className="hero">
         <h1 className="gradient-text">Find Your Dream College</h1>
         <p>Compare fees, explore campuses, and make the right choice for your future across multiple districts and degrees.</p>
+
+        {/* New Feature Buttons */}
+        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginBottom: '2rem', flexWrap: 'wrap' }}>
+          <button
+            className={`btn ${showCategories ? 'btn-primary' : 'btn-outline'}`}
+            onClick={handleCategoryClick}
+          >
+            {showCategories ? 'Hide Categories' : '🎓 College Categories'}
+          </button>
+
+          <button
+            className={`btn ${activeLevel === 'UG' ? 'btn-primary' : 'btn-outline'}`}
+            onClick={() => setActiveLevel(activeLevel === 'UG' ? null : 'UG')}
+          >
+            📚 UG Courses
+          </button>
+
+          <button
+            className={`btn ${activeLevel === 'PG' ? 'btn-primary' : 'btn-outline'}`}
+            onClick={() => setActiveLevel(activeLevel === 'PG' ? null : 'PG')}
+          >
+            🎓 PG Courses
+          </button>
+        </div>
+
+        {/* Category Grid (Collapsible) */}
+        {showCategories && (
+          <div className="glass animate-fade-in" style={{ padding: '2rem', marginBottom: '2rem', background: 'rgba(255,255,255,0.05)' }}>
+            <h3 style={{ marginTop: 0, marginBottom: '1.5rem', textAlign: 'center' }}>Explore by Category</h3>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '1rem' }}>
+              {categories.map((cat, idx) => (
+                <div
+                  key={idx}
+                  className="glass glass-hover"
+                  onClick={() => selectCategory(cat.name)}
+                  style={{
+                    padding: '1.5rem',
+                    textAlign: 'center',
+                    cursor: 'pointer',
+                    background: selectedCategory === cat.name ? 'rgba(99, 102, 241, 0.4)' : 'rgba(0,0,0,0.2)',
+                    border: selectedCategory === cat.name ? '2px solid var(--primary)' : '1px solid transparent',
+                    transition: 'all 0.3s ease'
+                  }}
+                >
+                  <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>{cat.icon}</div>
+                  <div style={{ fontWeight: 'bold' }}>{cat.name}</div>
+                </div>
+              ))}
+            </div>
+            {selectedCategory && (
+              <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+                <p style={{ color: 'var(--primary)', fontWeight: 'bold' }}>
+                  Filtering by {selectedCategory} • <span style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setSelectedCategory(null)}>Clear</span>
+                </p>
+              </div>
+            )}
+          </div>
+        )}
+
         <div style={{ maxWidth: '600px', margin: '0 auto', display: 'flex', gap: '1rem' }}>
           <select
             value={filters.degree}
@@ -105,7 +222,10 @@ function Home() {
               </div>
             </div>
 
-            <button className="btn btn-outline" style={{ width: '100%' }} onClick={() => setFilters({ degree: '', district: '', minFee: 0, maxFee: 200000 })}>
+            <button className="btn btn-outline" style={{ width: '100%' }} onClick={() => {
+              setFilters({ degree: '', district: '', minFee: 0, maxFee: 200000 });
+              setActiveLevel(null);
+            }}>
               Clear All Filters
             </button>
 
@@ -153,7 +273,6 @@ function Home() {
       </div>
     </div>
   );
-
 }
 
 export default Home;

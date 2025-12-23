@@ -60,6 +60,21 @@ router.get('/options', async (req, res) => {
   }
 });
 
+// Get college categories
+router.get('/categories', async (req, res) => {
+  try {
+    const categories = [
+      { name: 'Engineering', icon: '⚙️' },
+      { name: 'Medical', icon: '🏥' },
+      { name: 'Arts & Science', icon: '🎨' },
+      { name: 'Management', icon: '💼' }
+    ];
+    res.json(categories);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Get single college
 router.get('/:id', async (req, res) => {
   try {
