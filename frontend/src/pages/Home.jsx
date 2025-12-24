@@ -254,6 +254,8 @@ function Home() {
                     <div>
                       <span style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Annual Fee</span>
                       <span style={{ fontWeight: '800', fontSize: '1.4rem', color: 'white' }}>₹{college.fees.toLocaleString()}</span>
+                      <span style={{ marginLeft: '0.5rem', color: 'var(--text-secondary)' }}>Hostel: ₹{college.hostel_fees?.toLocaleString() || '0'}</span>
+                      <span style={{ marginLeft: '0.5rem', color: 'var(--text-secondary)' }}>One‑Time: ₹{college.one_time_fees?.toLocaleString() || '0'}</span>
                     </div>
                     <Link to={`/college/${college.college_id}`}>
                       <button className="btn btn-primary">Details</button>

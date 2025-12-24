@@ -84,6 +84,7 @@ function CollegeDetails() {
               <div>
                 <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Consolidated Annual Fee</p>
                 <h2 style={{ fontSize: '2.5rem', margin: 0 }}>₹{college.fees.toLocaleString()}</h2>
+                <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem' }}>Hostel Fees: ₹{college.hostel_fees?.toLocaleString() || '0'} | One‑Time Fees: ₹{college.one_time_fees?.toLocaleString() || '0'}</p>
               </div>
               <div style={{ textAlign: 'right' }}>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Academic Year 2025-26</p>

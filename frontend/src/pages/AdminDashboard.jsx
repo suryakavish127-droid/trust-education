@@ -10,7 +10,7 @@ function AdminDashboard() {
 
   // New College State
   const [newCollege, setNewCollege] = useState({
-    college_name: '', degree: '', district: '', fees: '', description: ''
+    college_name: '', degree: '', district: '', fees: '', hostel_fees: '', one_time_fees: '', description: ''
   });
 
   useEffect(() => {
@@ -45,7 +45,7 @@ function AdminDashboard() {
     try {
       await axios.post('http://localhost:5000/api/admin/colleges', newCollege);
       alert('College Added');
-      setNewCollege({ college_name: '', degree: '', district: '', fees: '', description: '' });
+      setNewCollege({ college_name: '', degree: '', district: '', fees: '', hostel_fees: '', one_time_fees: '', description: '' });
       fetchColleges();
     } catch (err) {
       alert('Error adding college');
@@ -113,6 +113,14 @@ function AdminDashboard() {
                 <label>Annual Fees (₹)</label>
                 <input type="number" placeholder="95000" value={newCollege.fees} onChange={e => setNewCollege({ ...newCollege, fees: e.target.value })} required />
               </div>
+              <div>
+                <label>Hostel Fees (₹)</label>
+                <input type="number" placeholder="20000" value={newCollege.hostel_fees} onChange={e => setNewCollege({ ...newCollege, hostel_fees: e.target.value })} />
+              </div>
+              <div>
+                <label>One-Time Fees (₹)</label>
+                <input type="number" placeholder="15000" value={newCollege.one_time_fees} onChange={e => setNewCollege({ ...newCollege, one_time_fees: e.target.value })} />
+              </div>
               <div style={{ gridColumn: '1/-1' }}>
                 <label>Institute Description</label>
                 <textarea rows="4" placeholder="Briefly describe the campus, facilities and ranking..." value={newCollege.description} onChange={e => setNewCollege({ ...newCollege, description: e.target.value })} />
@@ -127,7 +135,7 @@ function AdminDashboard() {
                   <div>
                     <span style={{ fontWeight: '700', fontSize: '1.1rem' }}>{c.college_name}</span>
                     <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
-                      {c.degree} • {c.district} • <span style={{ color: 'white' }}>₹{c.fees.toLocaleString()}</span>
+                      {c.degree} • {c.district} • <span style={{ color: 'white' }}>₹{c.fees.toLocaleString()}</span> • Hostel: ₹{c.hostel_fees?.toLocaleString() || '0'} • One‑Time: ₹{c.one_time_fees?.toLocaleString() || '0'}
                     </div>
                   </div>
                   <button
