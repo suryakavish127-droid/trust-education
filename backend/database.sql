@@ -33,6 +33,38 @@ CREATE TABLE IF NOT EXISTS admin (
   password VARCHAR(255)
 );
 
+-- Table: college_fees (Legacy One-Time Fees)
+CREATE TABLE IF NOT EXISTS college_fees (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  college_name VARCHAR(200),
+  fee_category VARCHAR(100), -- 'One-Time', 'Annual', etc.
+  fee_name VARCHAR(200),
+  amount INT,
+  purpose TEXT,
+  refundable_status ENUM('Refundable', 'Non-Refundable') DEFAULT 'Non-Refundable'
+);
+
+-- Table: hostel_fees (Unified Schema)
+CREATE TABLE IF NOT EXISTS hostel_fees (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  college_id INT,
+  hostel_type VARCHAR(200),
+  room_type VARCHAR(200),
+  fee_per_year INT,
+  mess_fee INT,
+  total_amount INT
+);
+
+-- Table: one_time_fees (Unified Schema)
+CREATE TABLE IF NOT EXISTS one_time_fees (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  college_id INT,
+  fee_name VARCHAR(200),
+  amount INT,
+  purpose TEXT,
+  status VARCHAR(100)
+);
+
 -- Insert Dummy Data for Colleges (Replaced with specific Medical College data)
 DELETE FROM colleges;
 INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
@@ -54,6 +86,36 @@ INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
 ('MAM College of Engineering and Technology', 'Tiruchirappalli', 'II LE - CIVIL & MECH', 50000, 'Total Fee: 55000, Note: FG + 25000, Extra: 60000'),
 ('MAM College of Engineering and Technology', 'Tiruchirappalli', 'M.E - Structural Engineering', 50000, 'Total Fee: 55000'),
 ('MAM College of Engineering and Technology', 'Tiruchirappalli', 'M.E - VLSI & CAD / CAM', 50000, 'Total Fee: 55000');
+INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
+('Adithya Institute of Technology', 'Coimbatore', 'B.E AI & DS', 110000, 'UG Engineering - Government Quota'),
+('Adithya Institute of Technology', 'Coimbatore', 'B.E CSE', 100000, 'UG Engineering - Government Quota'),
+('Adithya Institute of Technology', 'Coimbatore', 'B.E IT', 100000, 'UG Engineering - Government Quota'),
+('Adithya Institute of Technology', 'Coimbatore', 'B.E ECE', 95000, 'UG Engineering - Government Quota'),
+('Adithya Institute of Technology', 'Coimbatore', 'B.E EEE', 75000, 'UG Engineering - Government Quota'),
+('Adithya Institute of Technology', 'Coimbatore', 'B.E Mechanical', 75000, 'UG Engineering - Government Quota'),
+('Adithya Institute of Technology', 'Coimbatore', 'B.E Civil', 50000, 'UG Engineering - Government Quota'),
+
+('Adithya Institute of Technology', 'Coimbatore', 'B.E AI & DS (Lateral Entry)', 95000, 'Lateral Entry 2nd Year'),
+('Adithya Institute of Technology', 'Coimbatore', 'B.E CSE (Lateral Entry)', 65000, 'Lateral Entry 2nd Year'),
+('Adithya Institute of Technology', 'Coimbatore', 'B.E IT (Lateral Entry)', 65000, 'Lateral Entry 2nd Year'),
+('Adithya Institute of Technology', 'Coimbatore', 'B.E ECE (Lateral Entry)', 65000, 'Lateral Entry 2nd Year'),
+('Adithya Institute of Technology', 'Coimbatore', 'B.E EEE (Lateral Entry)', 50000, 'Lateral Entry 2nd Year'),
+('Adithya Institute of Technology', 'Coimbatore', 'B.E Mechanical (Lateral Entry)', 50000, 'Lateral Entry 2nd Year'),
+('Adithya Institute of Technology', 'Coimbatore', 'B.E Civil (Lateral Entry)', 40000, 'Lateral Entry 2nd Year'),
+
+('Adithya College of Arts and Science', 'Coimbatore', 'B.A Political Science', 60000, 'UG - 3 Years'),
+('Adithya College of Arts and Science', 'Coimbatore', 'B.Com', 60000, 'UG - 3 Years'),
+('Adithya College of Arts and Science', 'Coimbatore', 'B.Com (CA)', 60000, 'UG - 3 Years'),
+('Adithya College of Arts and Science', 'Coimbatore', 'B.Com (PA)', 60000, 'UG - 3 Years'),
+('Adithya College of Arts and Science', 'Coimbatore', 'BBA', 60000, 'UG - 3 Years'),
+('Adithya College of Arts and Science', 'Coimbatore', 'B.Sc Computer Science', 60000, 'UG - 3 Years'),
+('Adithya College of Arts and Science', 'Coimbatore', 'B.Sc AI & ML', 60000, 'UG - 3 Years'),
+('Adithya College of Arts and Science', 'Coimbatore', 'B.Sc IT', 60000, 'UG - 3 Years'),
+('Adithya College of Arts and Science', 'Coimbatore', 'B.Sc Psychology', 60000, 'UG - 3 Years'),
+('Adithya College of Arts and Science', 'Coimbatore', 'B.A English Literature', 30000, 'UG - 3 Years'),
+('Adithya College of Arts and Science', 'Coimbatore', 'B.Sc Mathematics', 30000, 'UG - 3 Years'),
+('Adithya College of Arts and Science', 'Coimbatore', 'B.Com IT', 60000, 'UG - 3 Years');
+
 
 -- Add Nehru College Data to main table (Updated with proper district)
 INSERT INTO colleges (college_name, district, degree, fees, description) VALUES

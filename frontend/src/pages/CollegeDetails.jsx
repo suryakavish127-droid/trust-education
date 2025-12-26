@@ -8,6 +8,8 @@ function CollegeDetails() {
   const [form, setForm] = useState({
     student_name: '', phone: '', email: '', interested_degree: '', message: ''
   });
+  const [hostelFees, setHostelFees] = useState([]);
+  const [oneTimeFees, setOneTimeFees] = useState([]);
   const [msg, setMsg] = useState('');
 
   useEffect(() => {
@@ -19,6 +21,33 @@ function CollegeDetails() {
       const res = await axios.get(`http://localhost:5000/api/colleges/${id}`);
       setCollege(res.data);
       setForm(prev => ({ ...prev, interested_degree: res.data.degree }));
+
+      // Fetch Unified Fee Details
+      if (id) {
+        try {
+          const uRes = await axios.get(`http://localhost:5000/api/colleges/fees/unified/${id}`);
+          const unifiedFees = uRes.data;
+
+          setHostelFees(unifiedFees.filter(f => f.fee_type === 'HOSTEL_FEE').map(f => ({
+            id: Math.random(),
+            hostel_type: f.hostel_type || f.name, // Support both schemas during transition
+            room_type: f.room_type || '-',
+            fee_per_year: f.fee_per_year || 0,
+            mess_fee: f.mess_fee || 0,
+            amount: f.amount // total
+          })));
+
+          setOneTimeFees(unifiedFees.filter(f => f.fee_type === 'ONE_TIME_FEE').map(f => ({
+            id: Math.random(),
+            fee_name: f.name,
+            amount: f.amount,
+            purpose: f.purpose,
+            refundable_status: f.status
+          })));
+        } catch (e) {
+          console.error("Error fetching unified fees", e);
+        }
+      }
     } catch (err) {
       console.error(err);
     }
@@ -84,11 +113,91 @@ function CollegeDetails() {
               <div>
                 <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Consolidated Annual Fee</p>
                 <h2 style={{ fontSize: '2.5rem', margin: 0 }}>₹{college.fees.toLocaleString()}</h2>
-                <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem' }}>Hostel Fees: ₹{college.hostel_fees?.toLocaleString() || '0'} | One‑Time Fees: ₹{college.one_time_fees?.toLocaleString() || '0'}</p>
+                <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem' }}>
+                  Hostel Fees: ₹{college.hostel_fees?.toLocaleString() || '0'} | One‑Time Fees: ₹{college.one_time_fees?.toLocaleString() || '0'}
+                </p>
               </div>
               <div style={{ textAlign: 'right' }}>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Academic Year 2025-26</p>
                 <span className="badge" style={{ background: 'rgba(34, 197, 94, 0.2)', color: '#4ade80', borderColor: 'rgba(34, 197, 94, 0.3)' }}>● Admissions Open</span>
+              </div>
+            </div>
+
+
+            {/* Always display Hostel Fees Section */}
+            <div style={{ marginTop: '2.5rem' }}>
+              <h4 style={{ marginBottom: '1rem', color: '#fff' }}>Hostel Fees Structure</h4>
+              <div className="glass" style={{ padding: '0', overflow: 'hidden' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.95rem' }}>
+                  <thead>
+                    <tr style={{ textAlign: 'left', background: 'rgba(255,255,255,0.05)', color: 'var(--text-secondary)' }}>
+                      <th style={{ padding: '1rem' }}>Hostel Type</th>
+                      <th style={{ padding: '1rem' }}>Room Type</th>
+                      <th style={{ padding: '1rem' }}>Rent/Year</th>
+                      <th style={{ padding: '1rem' }}>Mess Fee</th>
+                      <th style={{ padding: '1rem' }}>Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {hostelFees.length > 0 ? (
+                      hostelFees.map(f => (
+                        <tr key={f.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                          <td style={{ padding: '1rem', color: '#fff' }}>{f.hostel_type}</td>
+                          <td style={{ padding: '1rem', color: 'var(--text-secondary)' }}>{f.room_type}</td>
+                          <td style={{ padding: '1rem' }}>₹{f.fee_per_year.toLocaleString()}</td>
+                          <td style={{ padding: '1rem' }}>₹{f.mess_fee.toLocaleString()}</td>
+                          <td style={{ padding: '1rem', fontWeight: 'bold', color: 'var(--primary)' }}>₹{f.amount.toLocaleString()}</td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="3" style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-secondary)' }}>No Hostel Fees data available</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Always display One-Time Fees Section */}
+            <div style={{ marginTop: '2.5rem' }}>
+              <h4 style={{ marginBottom: '1rem', color: '#fff' }}>One-Time Fees Breakdown</h4>
+              <div className="glass" style={{ padding: '0', overflow: 'hidden' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.95rem' }}>
+                  <thead>
+                    <tr style={{ textAlign: 'left', background: 'rgba(255,255,255,0.05)', color: 'var(--text-secondary)' }}>
+                      <th style={{ padding: '1rem' }}>Fee Name</th>
+                      <th style={{ padding: '1rem' }}>Amount</th>
+                      <th style={{ padding: '1rem' }}>Purpose</th>
+                      <th style={{ padding: '1rem' }}>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {oneTimeFees.length > 0 ? (
+                      oneTimeFees.map(f => (
+                        <tr key={f.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                          <td style={{ padding: '1rem', color: '#fff' }}>{f.fee_name}</td>
+                          <td style={{ padding: '1rem', fontWeight: 'bold' }}>₹{f.amount.toLocaleString()}</td>
+                          <td style={{ padding: '1rem', color: 'var(--text-secondary)' }}>{f.purpose || 'General'}</td>
+                          <td style={{ padding: '1rem' }}>
+                            <span className="badge" style={{
+                              background: f.refundable_status === 'Refundable' ? 'rgba(34, 197, 94, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+                              color: f.refundable_status === 'Refundable' ? '#4ade80' : '#f87171',
+                              borderColor: f.refundable_status === 'Refundable' ? 'rgba(34, 197, 94, 0.2)' : 'rgba(239, 68, 68, 0.2)',
+                              fontSize: '0.75rem'
+                            }}>
+                              {f.refundable_status || 'Non-Refundable'}
+                            </span>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="4" style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-secondary)' }}>No One-Time Fees data available</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -143,7 +252,7 @@ function CollegeDetails() {
           </aside>
         </div>
       </div>
-    </div>
+    </div >
   );
 
 }

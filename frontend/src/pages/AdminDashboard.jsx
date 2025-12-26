@@ -13,6 +13,9 @@ function AdminDashboard() {
     college_name: '', degree: '', district: '', fees: '', hostel_fees: '', one_time_fees: '', description: ''
   });
 
+  // Edit College State
+  const [editingCollege, setEditingCollege] = useState(null);
+
   useEffect(() => {
     // Basic auth check logic (In real app verify token)
     const admin = localStorage.getItem('admin');
@@ -62,6 +65,23 @@ function AdminDashboard() {
     }
   };
 
+  const handleEdit = (college) => {
+    setEditingCollege({ ...college });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put(`http://localhost:5000/api/admin/colleges/${editingCollege.college_id}`, editingCollege);
+      alert('College Updated');
+      setEditingCollege(null);
+      fetchColleges();
+    } catch (err) {
+      alert('Error updating college');
+    }
+  };
+
   return (
     <div className="container animate-fade-in">
       <div className="glass" style={{ padding: '3rem', minHeight: '600px' }}>
@@ -95,38 +115,80 @@ function AdminDashboard() {
 
         {activeTab === 'colleges' && (
           <div className="animate-fade-in">
-            <h3 style={{ marginBottom: '1.5rem' }}>Add New Institute</h3>
-            <form onSubmit={handleCreateCollege} className="glass" style={{ padding: '2rem', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem', marginBottom: '4rem', background: 'rgba(255,255,255,0.02)' }}>
-              <div>
-                <label>College Name</label>
-                <input placeholder="University of Technology" value={newCollege.college_name} onChange={e => setNewCollege({ ...newCollege, college_name: e.target.value })} required />
+            {editingCollege ? (
+              <div className="animate-fade-in" style={{ marginBottom: '4rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+                  <h3 style={{ margin: 0 }}>Edit Institute: {editingCollege.college_name}</h3>
+                  <button className="btn btn-outline" onClick={() => setEditingCollege(null)}>Cancel Edit</button>
+                </div>
+                <form onSubmit={handleUpdate} className="glass" style={{ padding: '2rem', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem', background: 'rgba(99, 102, 241, 0.1)', border: '1px solid var(--primary)' }}>
+                  <div>
+                    <label>College Name</label>
+                    <input placeholder="University of Technology" value={editingCollege.college_name} onChange={e => setEditingCollege({ ...editingCollege, college_name: e.target.value })} required />
+                  </div>
+                  <div>
+                    <label>Degree Available</label>
+                    <input placeholder="e.g. BCA, B.Tech" value={editingCollege.degree} onChange={e => setEditingCollege({ ...editingCollege, degree: e.target.value })} required />
+                  </div>
+                  <div>
+                    <label>Located District</label>
+                    <input placeholder="e.g. Bangalore" value={editingCollege.district} onChange={e => setEditingCollege({ ...editingCollege, district: e.target.value })} required />
+                  </div>
+                  <div>
+                    <label>Annual Fees (₹)</label>
+                    <input type="number" placeholder="95000" value={editingCollege.fees} onChange={e => setEditingCollege({ ...editingCollege, fees: e.target.value })} required />
+                  </div>
+                  <div>
+                    <label>Hostel Fees (₹)</label>
+                    <input type="number" placeholder="20000" value={editingCollege.hostel_fees} onChange={e => setEditingCollege({ ...editingCollege, hostel_fees: e.target.value })} />
+                  </div>
+                  <div>
+                    <label>One-Time Fees (₹)</label>
+                    <input type="number" placeholder="15000" value={editingCollege.one_time_fees} onChange={e => setEditingCollege({ ...editingCollege, one_time_fees: e.target.value })} />
+                  </div>
+                  <div style={{ gridColumn: '1/-1' }}>
+                    <label>Institute Description</label>
+                    <textarea rows="4" placeholder="Briefly describe the campus, facilities and ranking..." value={editingCollege.description} onChange={e => setEditingCollege({ ...editingCollege, description: e.target.value })} />
+                  </div>
+                  <button className="btn btn-primary" style={{ gridColumn: '1/-1', padding: '1rem' }}>Update College Details</button>
+                </form>
               </div>
-              <div>
-                <label>Degree Available</label>
-                <input placeholder="e.g. BCA, B.Tech" value={newCollege.degree} onChange={e => setNewCollege({ ...newCollege, degree: e.target.value })} required />
+            ) : (
+              <div className="animate-fade-in">
+                <h3 style={{ marginBottom: '1.5rem' }}>Add New Institute</h3>
+                <form onSubmit={handleCreateCollege} className="glass" style={{ padding: '2rem', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem', marginBottom: '4rem', background: 'rgba(255,255,255,0.02)' }}>
+                  <div>
+                    <label>College Name</label>
+                    <input placeholder="University of Technology" value={newCollege.college_name} onChange={e => setNewCollege({ ...newCollege, college_name: e.target.value })} required />
+                  </div>
+                  <div>
+                    <label>Degree Available</label>
+                    <input placeholder="e.g. BCA, B.Tech" value={newCollege.degree} onChange={e => setNewCollege({ ...newCollege, degree: e.target.value })} required />
+                  </div>
+                  <div>
+                    <label>Located District</label>
+                    <input placeholder="e.g. Bangalore" value={newCollege.district} onChange={e => setNewCollege({ ...newCollege, district: e.target.value })} required />
+                  </div>
+                  <div>
+                    <label>Annual Fees (₹)</label>
+                    <input type="number" placeholder="95000" value={newCollege.fees} onChange={e => setNewCollege({ ...newCollege, fees: e.target.value })} required />
+                  </div>
+                  <div>
+                    <label>Hostel Fees (₹)</label>
+                    <input type="number" placeholder="20000" value={newCollege.hostel_fees} onChange={e => setNewCollege({ ...newCollege, hostel_fees: e.target.value })} />
+                  </div>
+                  <div>
+                    <label>One-Time Fees (₹)</label>
+                    <input type="number" placeholder="15000" value={newCollege.one_time_fees} onChange={e => setNewCollege({ ...newCollege, one_time_fees: e.target.value })} />
+                  </div>
+                  <div style={{ gridColumn: '1/-1' }}>
+                    <label>Institute Description</label>
+                    <textarea rows="4" placeholder="Briefly describe the campus, facilities and ranking..." value={newCollege.description} onChange={e => setNewCollege({ ...newCollege, description: e.target.value })} />
+                  </div>
+                  <button className="btn btn-primary" style={{ gridColumn: '1/-1', padding: '1rem' }}>Deploy New College Listing</button>
+                </form>
               </div>
-              <div>
-                <label>Located District</label>
-                <input placeholder="e.g. Bangalore" value={newCollege.district} onChange={e => setNewCollege({ ...newCollege, district: e.target.value })} required />
-              </div>
-              <div>
-                <label>Annual Fees (₹)</label>
-                <input type="number" placeholder="95000" value={newCollege.fees} onChange={e => setNewCollege({ ...newCollege, fees: e.target.value })} required />
-              </div>
-              <div>
-                <label>Hostel Fees (₹)</label>
-                <input type="number" placeholder="20000" value={newCollege.hostel_fees} onChange={e => setNewCollege({ ...newCollege, hostel_fees: e.target.value })} />
-              </div>
-              <div>
-                <label>One-Time Fees (₹)</label>
-                <input type="number" placeholder="15000" value={newCollege.one_time_fees} onChange={e => setNewCollege({ ...newCollege, one_time_fees: e.target.value })} />
-              </div>
-              <div style={{ gridColumn: '1/-1' }}>
-                <label>Institute Description</label>
-                <textarea rows="4" placeholder="Briefly describe the campus, facilities and ranking..." value={newCollege.description} onChange={e => setNewCollege({ ...newCollege, description: e.target.value })} />
-              </div>
-              <button className="btn btn-primary" style={{ gridColumn: '1/-1', padding: '1rem' }}>Deploy New College Listing</button>
-            </form>
+            )}
 
             <h3 style={{ marginBottom: '1.5rem' }}>Active Listings ({colleges.length})</h3>
             <div style={{ display: 'grid', gap: '1rem' }}>
@@ -138,13 +200,22 @@ function AdminDashboard() {
                       {c.degree} • {c.district} • <span style={{ color: 'white' }}>₹{c.fees.toLocaleString()}</span> • Hostel: ₹{c.hostel_fees?.toLocaleString() || '0'} • One‑Time: ₹{c.one_time_fees?.toLocaleString() || '0'}
                     </div>
                   </div>
-                  <button
-                    onClick={() => handleDelete(c.college_id)}
-                    className="btn btn-outline"
-                    style={{ color: '#f87171', borderColor: 'rgba(248, 113, 113, 0.2)', padding: '0.5rem 1rem', fontSize: '0.8rem' }}
-                  >
-                    Remove
-                  </button>
+                  <div style={{ display: 'flex', gap: '0.5rem' }}>
+                    <button
+                      onClick={() => handleEdit(c)}
+                      className="btn btn-outline"
+                      style={{ padding: '0.5rem 1rem', fontSize: '0.8rem' }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(c.college_id)}
+                      className="btn btn-outline"
+                      style={{ color: '#f87171', borderColor: 'rgba(248, 113, 113, 0.2)', padding: '0.5rem 1rem', fontSize: '0.8rem' }}
+                    >
+                      Remove
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>

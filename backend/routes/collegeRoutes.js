@@ -75,6 +75,67 @@ router.get('/categories', async (req, res) => {
   }
 });
 
+// Get Hostel Fees by College Name
+router.get('/fees/hostel/:collegeName', async (req, res) => {
+  try {
+    const [rows] = await db.query('SELECT * FROM college_hostel_fees WHERE college_name = ?', [req.params.collegeName]);
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Get One-Time Fees by College Name
+router.get('/fees/onetime/:collegeName', async (req, res) => {
+  try {
+    const [rows] = await db.query("SELECT * FROM college_fees WHERE college_name = ? AND fee_category = 'One-Time'", [req.params.collegeName]);
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Get Unified Fees by College ID
+router.get('/fees/unified/:id', async (req, res) => {
+  const query = `
+    SELECT 
+        'HOSTEL_FEE' AS fee_type,
+        hf.college_id,
+        hf.hostel_type,
+        hf.room_type,
+        hf.fee_per_year,
+        hf.mess_fee,
+        hf.total_amount AS amount,
+        NULL AS name,
+        NULL AS purpose,
+        NULL AS status
+    FROM hostel_fees hf
+    WHERE hf.college_id = ?
+
+    UNION ALL
+
+    SELECT 
+        'ONE_TIME_FEE' AS fee_type,
+        ot.college_id,
+        NULL AS hostel_type,
+        NULL AS room_type,
+        NULL AS fee_per_year,
+        NULL AS mess_fee,
+        ot.amount,
+        ot.fee_name AS name,
+        ot.purpose,
+        ot.status
+    FROM one_time_fees ot
+    WHERE ot.college_id = ?
+  `;
+  try {
+    const [rows] = await db.query(query, [req.params.id, req.params.id]);
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Get single college
 router.get('/:id', async (req, res) => {
   try {

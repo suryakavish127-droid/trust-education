@@ -1,17 +1,16 @@
 @echo off
-echo Starting College Agency Project...
+echo Starting Backend Server...
+cd backend
+start "Backend Server" npm run dev
+cd ..
 
-:: Start Backend
-start "Backend Server" cmd /c "cd backend && npm run dev"
+echo Starting Frontend Application...
+cd frontend
+start "Frontend App" npm run dev
+cd ..
 
-:: Start Frontend
-start "Frontend (Vite)" cmd /c "cd frontend && npm run dev"
+echo Waiting for services to initialize...
+timeout /t 5 /nobreak >nul
 
-echo Waiting for servers to start...
-timeout /t 5
-
-:: Open the website in the default browser
+echo Opening application in default browser...
 start http://localhost:5173
-
-echo All systems are running! You can close this window.
-pause
