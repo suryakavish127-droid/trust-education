@@ -65,6 +65,17 @@ CREATE TABLE IF NOT EXISTS one_time_fees (
   status VARCHAR(100)
 );
 
+-- Table: course_fees (Course-specific fee structure with FG/Non-FG categories)
+CREATE TABLE IF NOT EXISTS course_fees (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  college_name VARCHAR(200),
+  place VARCHAR(100),
+  course VARCHAR(200),
+  fg_fee INT,
+  non_fg_fee INT,
+  sc_sca_st VARCHAR(100)
+);
+
 -- Insert Dummy Data for Colleges (Replaced with specific Medical College data)
 DELETE FROM colleges;
 INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
@@ -116,6 +127,106 @@ INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
 ('Adithya College of Arts and Science', 'Coimbatore', 'B.Sc Mathematics', 30000, 'UG - 3 Years'),
 ('Adithya College of Arts and Science', 'Coimbatore', 'B.Com IT', 60000, 'UG - 3 Years');
 
+INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
+('Imayam College of Engineering', 'Tiruchirappalli', 'AI & DS', 25000, 'AI & Data Science course with PMSS scheme'),
+('Imayam College of Engineering', 'Tiruchirappalli', 'CSE', 25000, 'Computer Science Engineering with PMSS scheme'),
+('Imayam College of Engineering', 'Tiruchirappalli', 'Cyber Security', 25000, 'Cyber Security Engineering with PMSS scheme'),
+('Imayam College of Engineering', 'Tiruchirappalli', 'AI & ML', 25000, 'Artificial Intelligence & Machine Learning with PMSS scheme'),
+('Imayam College of Engineering', 'Tiruchirappalli', 'ECE', 25000, 'Electronics and Communication Engineering with PMSS scheme'),
+('Imayam College of Engineering', 'Tiruchirappalli', 'EEE', 15000, 'Electrical and Electronics Engineering with PMSS scheme'),
+('Imayam College of Engineering', 'Tiruchirappalli', 'MECH', 15000, 'Mechanical Engineering with PMSS scheme'),
+('Imayam College of Engineering', 'Tiruchirappalli', 'IT', 25000, 'Information Technology course with PMSS scheme'),
+('Imayam College of Engineering', 'Tiruchirappalli', 'Bio - Medical', 25000, 'Biomedical Engineering with PMSS scheme');
+
+INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'B.E / B.Tech (Agri, ECE, EEE, Mech, Biomedical)', 50000, 'Counselling Fee 50000 | Management Fee 70000'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'B.E / B.Tech (CSE, IT, AIDS)', 70000, 'Counselling Fee 70000 | Management Fee 90000'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'B.E / B.Tech Lateral (ECE, EEE, Mech, Biomedical, Agri)', 50000, 'Counselling Fee 50000 | Management Fee 50000'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'B.E / B.Tech Lateral (CSE, IT, AIDS)', 70000, 'Counselling Fee 70000 | Management Fee 90000'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'M.E (VLSI, CSE)', 50000, 'Post Graduate ME Counselling Fee 50000'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'MBA', 60000, 'MBA Counselling Fee 60000'),
+
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'Physiotherapy (BPT)', 96000, 'Counselling Fee 96000'),
+
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'B.Sc Nursing', 130000, 'Counselling Fee 130000 | Management Fee 130000'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'ANM', 40000, 'Counselling Fee 40000 | Management Fee 40000'),
+
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'BSMS Siddha', 125000, 'Counselling Fee 125000 | Management Fee 250000'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'BNYS Naturopathy & Yogic Science', 125000, 'Counselling Fee 125000 | Management Fee 250000'),
+
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'B.Pharm', 130000, 'Counselling Fee 130000 | Management Fee 130000'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'M.Pharm', 80000, 'Counselling Fee 80000 | Management Fee 80000'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'D.Pharm', 70000, 'Counselling Fee 70000 | Management Fee 70000'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'Pharm.D', 250000, 'Counselling Fee 250000 | Management Fee 600000'),
+
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'ACET', 70000, 'Allied Health Science'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'DT', 70000, 'Allied Health Science'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'RIT', 96000, 'Allied Health Science'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'MLT', 96000, 'Allied Health Science'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'OTAT', 130000, 'Allied Health Science'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'CPPC', 130000, 'Allied Health Science'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'CT', 130000, 'Allied Health Science'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'HI', 60000, 'Allied Health Science'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'DMLT', 40000, 'Allied Health Science'),
+
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'M.Com', 30000, 'Counselling Fee'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'B.Sc Computer Science', 25000, 'Counselling Fee'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'B.Com', 25000, 'Counselling Fee'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'B.Com (CA)', 25000, 'Counselling Fee'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'B.Sc Nutrition & Dietetics', 25000, 'Counselling Fee'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'Aviation', 80000, 'Counselling Fee'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'M.Sc Computer Science', 30000, 'Counselling Fee'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'B.Sc FT & CD', 40000, 'Counselling Fee'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'B.Sc AI & ML', 30000, 'Counselling Fee'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'B.A Defence', 40000, 'Counselling Fee'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'B.Sc Forensic', 40000, 'Counselling Fee'),
+('Indra Ganesan Institutions', 'Tiruchirappalli', 'B.Sc Hotel Management & Catering Services', 40000, 'Counselling Fee');
+
+INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
+('CARE College of Engineering','Tiruchirappalli','AI & DS',80000,'GQ Total Fee'),
+('CARE College of Engineering','Tiruchirappalli','AI & DS',115000,'MQ Total Fee'),
+
+('CARE College of Engineering','Tiruchirappalli','CSE',85000,'GQ Total Fee'),
+('CARE College of Engineering','Tiruchirappalli','CSE',120000,'MQ Total Fee'),
+
+('CARE College of Engineering','Tiruchirappalli','CIVIL',50000,'GQ Total Fee'),
+('CARE College of Engineering','Tiruchirappalli','CIVIL',50000,'MQ Total Fee'),
+
+('CARE College of Engineering','Tiruchirappalli','ECE',77500,'GQ Total Fee'),
+('CARE College of Engineering','Tiruchirappalli','ECE',102500,'MQ Total Fee'),
+
+('CARE College of Engineering','Tiruchirappalli','MECH',62500,'GQ Total Fee'),
+('CARE College of Engineering','Tiruchirappalli','MECH',67500,'MQ Total Fee');
+
+INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
+('CARE College of Engineering','Tiruchirappalli','AI & DS',79500,'Lateral GQ Total Fee'),
+('CARE College of Engineering','Tiruchirappalli','AI & DS',114500,'Lateral MQ Total Fee'),
+
+('CARE College of Engineering','Tiruchirappalli','CSE',84500,'Lateral GQ Total Fee'),
+('CARE College of Engineering','Tiruchirappalli','CSE',119500,'Lateral MQ Total Fee'),
+
+('CARE College of Engineering','Tiruchirappalli','CIVIL',54500,'Lateral GQ Total Fee'),
+('CARE College of Engineering','Tiruchirappalli','CIVIL',54500,'Lateral MQ Total Fee'),
+
+('CARE College of Engineering','Tiruchirappalli','ECE',77000,'Lateral GQ Total Fee'),
+('CARE College of Engineering','Tiruchirappalli','ECE',102000,'Lateral MQ Total Fee'),
+
+('CARE College of Engineering','Tiruchirappalli','MECH',67000,'Lateral GQ Total Fee'),
+('CARE College of Engineering','Tiruchirappalli','MECH',69500,'Lateral MQ Total Fee');
+
+INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
+('CARE College of Engineering','Tiruchirappalli','M.E CSE (AI & ML)',65000,'PG GQ Total'),
+('CARE College of Engineering','Tiruchirappalli','M.E CSE (AI & ML)',65000,'PG MQ Total');
+
+INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
+('Rathinam Group of Institutions', 'Coimbatore', 'B.Com Accounting and Finance', 80000, 'Arts & Science UG course'),
+('Rathinam Group of Institutions', 'Coimbatore', 'B.Sc Computer Science', 100000, 'Arts & Science UG course'),
+('Rathinam Group of Institutions', 'Coimbatore', 'B.Sc Artificial Intelligence and Machine Learning', 110000, 'Arts & Science UG course'),
+('Rathinam Group of Institutions', 'Coimbatore', 'MBA General', 250000, 'Technical Campus PG course'),
+('Rathinam Group of Institutions', 'Coimbatore', 'B.E Computer Science and Engineering', 170000, 'Technical Campus UG course'),
+('Rathinam Group of Institutions', 'Coimbatore', 'B.Tech Artificial Intelligence and Data Science', 170000, 'Technical Campus UG course'),
+('Rathinam Group of Institutions', 'Coimbatore', 'MCA General', 150000, 'Technical Campus PG course'),
+('Rathinam Group of Institutions', 'Coimbatore', 'B.Pharm Pharmacy', 100000, 'Health Science course');
 
 -- Add Nehru College Data to main table (Updated with proper district)
 INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
@@ -188,6 +299,18 @@ INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
 ('Sri Ramakrishna College of Engineering', 'Coimbatore', 'B.E Mechanical Engineering', 35000, 'Tuition fee only'),
 ('Sri Ramakrishna College of Engineering', 'Coimbatore', 'B.Tech Agriculture Engineering', 35000, 'Tuition fee only'),
 ('Sri Ramakrishna College of Engineering', 'Coimbatore', 'M.E Computer Science and Engineering', 50000, 'Tuition fee only');
+
+-- ===== Hostel Fees Dummy Data =====
+-- Note: Using college_id from the colleges table above
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount) VALUES
+-- Dhanalakshmi Srinivasan Medical College (college_id will be auto-assigned, typically 1999)
+(1999, 'Boys Hostel', 'AC', 50000, 15000, 65000),
+(1999, 'Boys Hostel', 'Non-AC', 40000, 15000, 55000),
+(1999, 'Girls Hostel', 'AC', 48000, 15000, 63000),
+(1999, 'Girls Hostel', 'Non-AC', 38000, 15000, 53000),
+-- MAM College of Engineering (college_id will be auto-assigned, typically 2000)
+(2000, 'Boys Hostel', 'AC', 52000, 16000, 68000),
+(2000, 'Girls Hostel', 'Non-AC', 39000, 14000, 53000);
 
 -- Insert Dummy Admin (Password: hari@2025)
 INSERT INTO admin (username, password) VALUES ('hari1vkp', '$2b$10$YourHashedPasswordHere') ON DUPLICATE KEY UPDATE username=username;

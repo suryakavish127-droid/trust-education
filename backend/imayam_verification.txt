@@ -1,0 +1,20 @@
+Found 18 courses for Imayam College of Engineering:
+
+AI & DS              | FG Fee: Rs. 25000 | Non-FG Fee: Rs. 50000 | PMSS
+CSE                  | FG Fee: Rs. 25000 | Non-FG Fee: Rs. 50000 | PMSS
+Cyber Security       | FG Fee: Rs. 25000 | Non-FG Fee: Rs. 50000 | PMSS
+AI & ML              | FG Fee: Rs. 25000 | Non-FG Fee: Rs. 50000 | PMSS
+ECE                  | FG Fee: Rs. 25000 | Non-FG Fee: Rs. 50000 | PMSS
+EEE                  | FG Fee: Rs. 15000 | Non-FG Fee: Rs. 40000 | PMSS
+MECH                 | FG Fee: Rs. 15000 | Non-FG Fee: Rs. 40000 | PMSS
+IT                   | FG Fee: Rs. 25000 | Non-FG Fee: Rs. 50000 | PMSS
+Bio - Medical        | FG Fee: Rs. 25000 | Non-FG Fee: Rs. 50000 | PMSS
+AI & DS              | FG Fee: Rs. 25000 | Non-FG Fee: Rs. 50000 | PMSS
+CSE                  | FG Fee: Rs. 25000 | Non-FG Fee: Rs. 50000 | PMSS
+Cyber Security       | FG Fee: Rs. 25000 | Non-FG Fee: Rs. 50000 | PMSS
+AI & ML              | FG Fee: Rs. 25000 | Non-FG Fee: Rs. 50000 | PMSS
+ECE                  | FG Fee: Rs. 25000 | Non-FG Fee: Rs. 50000 | PMSS
+EEE                  | FG Fee: Rs. 15000 | Non-FG Fee: Rs. 40000 | PMSS
+MECH                 | FG Fee: Rs. 15000 | Non-FG Fee: Rs. 40000 | PMSS
+IT                   | FG Fee: Rs. 25000 | Non-FG Fee: Rs. 50000 | PMSS
+Bio - Medical        | FG Fee: Rs. 25000 | Non-FG Fee: Rs. 50000 | PMSS
