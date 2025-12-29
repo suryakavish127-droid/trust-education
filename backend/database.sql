@@ -300,6 +300,38 @@ INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
 ('Sri Ramakrishna College of Engineering', 'Coimbatore', 'B.Tech Agriculture Engineering', 35000, 'Tuition fee only'),
 ('Sri Ramakrishna College of Engineering', 'Coimbatore', 'M.E Computer Science and Engineering', 50000, 'Tuition fee only');
 
+-- Dhanalakshmi Srinivasan Arts and Science College
+INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
+('Dhanalakshmi Srinivasan Arts and Science College', 'Tiruchirappalli', 'B.Sc Computer Science', 60000, 'Undergraduate programme focused on computer applications and programming.'),
+('Dhanalakshmi Srinivasan Arts and Science College', 'Tiruchirappalli', 'B.Sc Information Technology', 60000, 'Course focused on IT, software and networking concepts.'),
+('Dhanalakshmi Srinivasan Arts and Science College', 'Tiruchirappalli', 'B.Sc Mathematics', 45000, 'Undergraduate degree specializing in advanced mathematics concepts.'),
+('Dhanalakshmi Srinivasan Arts and Science College', 'Tiruchirappalli', 'B.Com General', 50000, 'Bachelor of Commerce focusing on accounting, finance and business.'),
+('Dhanalakshmi Srinivasan Arts and Science College', 'Tiruchirappalli', 'B.Com Computer Applications', 55000, 'Commerce programme with computer and IT integration.'),
+('Dhanalakshmi Srinivasan Arts and Science College', 'Tiruchirappalli', 'BBA', 55000, 'Bachelor of Business Administration focused on management studies.'),
+('Dhanalakshmi Srinivasan Arts and Science College', 'Tiruchirappalli', 'B.A English', 45000, 'Undergraduate degree in English language and literature.'),
+('Dhanalakshmi Srinivasan Arts and Science College', 'Tiruchirappalli', 'B.Sc Biotechnology', 70000, 'Science programme focusing on biotechnology and life sciences.');
+
+-- Dhanalakshmi Srinivasan College of Engineering
+INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
+('Dhanalakshmi Srinivasan College of Engineering', 'Tiruchirappalli', 'B.E. Computer Science and Engineering', 100000, 'Undergraduate engineering program focused on computing and software development.'),
+('Dhanalakshmi Srinivasan College of Engineering', 'Tiruchirappalli', 'B.E. Computer Science and Engineering - AI & DS', 110000, 'Specialized CSE program in Artificial Intelligence and Data Science.'),
+('Dhanalakshmi Srinivasan College of Engineering', 'Tiruchirappalli', 'B.E. Artificial Intelligence and Machine Learning', 110000, 'Focused on Artificial Intelligence, Machine Learning and modern technologies.'),
+('Dhanalakshmi Srinivasan College of Engineering', 'Tiruchirappalli', 'B.E. Computer Science and Engineering - Cyber Security', 110000, 'Program specialized in cyber security and ethical hacking.'),
+('Dhanalakshmi Srinivasan College of Engineering', 'Tiruchirappalli', 'B.Tech Information Technology', 100000, 'Undergraduate degree in Information Technology and software development.'),
+('Dhanalakshmi Srinivasan College of Engineering', 'Tiruchirappalli', 'B.E. Electronics and Communication Engineering', 90000, 'Program focused on electronics, communication systems and embedded technology.'),
+('Dhanalakshmi Srinivasan College of Engineering', 'Tiruchirappalli', 'B.E. Electrical and Electronics Engineering', 85000, 'Engineering course in electrical power systems and electronics.'),
+('Dhanalakshmi Srinivasan College of Engineering', 'Tiruchirappalli', 'B.E. Mechanical Engineering', 85000, 'Mechanical engineering program focusing on machines and manufacturing.'),
+('Dhanalakshmi Srinivasan College of Engineering', 'Tiruchirappalli', 'B.E. Civil Engineering', 80000, 'Civil engineering program focusing on construction and structural engineering.'),
+('Dhanalakshmi Srinivasan College of Engineering', 'Tiruchirappalli', 'B.E. Biomedical Engineering', 100000, 'Engineering course combining medical and engineering technology.');
+
+-- Dhanalakshmi Srinivasan Group of Institutions
+INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
+('Dhanalakshmi Srinivasan Group of Institutions', 'Tiruchirappalli', 'B.Sc Nursing', 120000, 'Undergraduate nursing programme focusing on patient care and clinical practice.'),
+('Dhanalakshmi Srinivasan Group of Institutions', 'Tiruchirappalli', 'B.Pharmacy', 150000, 'Professional degree focusing on pharmaceutical science and drug development.'),
+('Dhanalakshmi Srinivasan Group of Institutions', 'Tiruchirappalli', 'D.Pharmacy', 90000, 'Diploma programme in pharmaceutical science.'),
+('Dhanalakshmi Srinivasan Group of Institutions', 'Tiruchirappalli', 'BPT - Bachelor of Physiotherapy', 130000, 'Physiotherapy programme focusing on rehabilitation and clinical practice.'),
+('Dhanalakshmi Srinivasan Group of Institutions', 'Tiruchirappalli', 'B.Sc Nutrition and Dietetics', 90000, 'Programme focusing on food science, health and nutrition.');
+
 -- ===== Hostel Fees Dummy Data =====
 -- Note: Using college_id from the colleges table above
 INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount) VALUES
@@ -314,4 +346,13 @@ INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_
 
 -- Insert Dummy Admin (Password: hari@2025)
 INSERT INTO admin (username, password) VALUES ('hari1vkp', '$2b$10$YourHashedPasswordHere') ON DUPLICATE KEY UPDATE username=username;
+
+-- Add image_url column to colleges table
+ALTER TABLE colleges ADD COLUMN IF NOT EXISTS image_url VARCHAR(255) DEFAULT NULL;
+
+-- Update Dhanalakshmi Srinivasan College with image URL
+UPDATE colleges 
+SET image_url = 'images/dhanalakshmi_trichy.jpg'
+WHERE college_name = 'Dhanalakshmi Srinivasan College' 
+AND district = 'Tiruchirappalli';
 

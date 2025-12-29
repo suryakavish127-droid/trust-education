@@ -84,8 +84,8 @@ function CollegeDetails() {
       {/* College Info Header */}
       <div className="glass" style={{ marginBottom: '3rem', overflow: 'hidden' }}>
         <div style={{
-          height: '250px',
-          background: `linear-gradient(rgba(0,0,0,0.5), var(--background)), url('/hero-bg.png')`,
+          height: '350px',
+          background: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.7)), url('/dhanalakshmi-college-1.jpg')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           display: 'flex',
