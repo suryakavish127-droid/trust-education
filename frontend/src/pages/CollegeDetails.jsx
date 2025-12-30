@@ -85,12 +85,13 @@ function CollegeDetails() {
       <div className="glass" style={{ marginBottom: '3rem', overflow: 'hidden' }}>
         <div style={{
           height: '350px',
-          background: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.7)), url('/dhanalakshmi-college-1.jpg')`,
+          background: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.7)), url('${college.image_url || '/dhanalakshmi-college-1.jpg'}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           display: 'flex',
           alignItems: 'flex-end',
-          padding: '3rem'
+          padding: '3rem',
+          transition: 'background-image 0.5s ease-in-out'
         }}>
           <div>
             <div style={{ marginBottom: '1rem', display: 'flex', gap: '1rem' }}>

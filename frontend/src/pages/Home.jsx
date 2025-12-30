@@ -3,31 +3,65 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 function Home() {
-  const [colleges, setColleges] = useState([]);
-  const [filters, setFilters] = useState({
+  // Persistence Helpers
+  const getSavedState = (key, initial) => {
+    try {
+      const saved = sessionStorage.getItem(key);
+      return saved ? JSON.parse(saved) : initial;
+    } catch (e) {
+      return initial;
+    }
+  };
+
+  const [colleges, setColleges] = useState(() => getSavedState('home_colleges', []));
+  const [filters, setFilters] = useState(() => getSavedState('home_filters', {
     degree: '',
     district: '',
     minFee: 0,
     maxFee: 200000
-  });
+  }));
 
   // Dynamic lists for dropdowns
   const [districts, setDistricts] = useState([]);
   const [degrees, setDegrees] = useState([]);
 
   // New State for Category Feature
-  const [showCategories, setShowCategories] = useState(false);
-  const [categories, setCategories] = useState([]);
-  const [activeLevel, setActiveLevel] = useState(null); // 'UG' or 'PG'
-  const [selectedCategory, setSelectedCategory] = useState(null); // Track selected category
+  const [showCategories, setShowCategories] = useState(() => getSavedState('home_showCategories', false));
+  const [categories, setCategories] = useState([]); // Options don't need persistence, fetched on demand
+  const [activeLevel, setActiveLevel] = useState(() => getSavedState('home_activeLevel', null));
+  const [selectedCategory, setSelectedCategory] = useState(() => getSavedState('home_selectedCategory', null));
+
+  // Searchable Dropdown State
+  const [degreeSearch, setDegreeSearch] = useState(() => getSavedState('home_degreeSearch', ''));
+  const [showDegreeDropdown, setShowDegreeDropdown] = useState(false);
+
+  // Save State on Change
+  useEffect(() => {
+    sessionStorage.setItem('home_colleges', JSON.stringify(colleges));
+    sessionStorage.setItem('home_filters', JSON.stringify(filters));
+    sessionStorage.setItem('home_showCategories', JSON.stringify(showCategories));
+    sessionStorage.setItem('home_activeLevel', JSON.stringify(activeLevel));
+    sessionStorage.setItem('home_selectedCategory', JSON.stringify(selectedCategory));
+    sessionStorage.setItem('home_degreeSearch', JSON.stringify(degreeSearch));
+  }, [colleges, filters, showCategories, activeLevel, selectedCategory, degreeSearch]);
 
   useEffect(() => {
     fetchOptions();
+
+    // Only fetch default colleges if we haven't visited before in this session
+    // AND if we don't have existing results saved.
+    // This allows "Back" button to show exactly what was left.
+    const hasVisited = sessionStorage.getItem('home_visited');
+    if (!hasVisited) {
+      fetchColleges();
+      sessionStorage.setItem('home_visited', 'true');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
+  const handleSearch = () => {
     fetchColleges();
-  }, [filters, activeLevel, selectedCategory]);
+  };
 
   const fetchOptions = async () => {
     try {
@@ -86,6 +120,7 @@ function Home() {
     }
   };
 
+
   const handleCategoryClick = async () => {
     if (!showCategories) {
       try {
@@ -100,11 +135,91 @@ function Home() {
 
   const selectCategory = (categoryName) => {
     if (selectedCategory === categoryName) {
-      setSelectedCategory(null); // Deselect if already selected
+      setSelectedCategory(null);
     } else {
       setSelectedCategory(categoryName);
+      // Reset degree search/filter when changing category
+      setDegreeSearch('');
+      setFilters(prev => ({ ...prev, degree: '' }));
     }
   };
+
+
+
+  // Helper for fuzzy search / abbreviations
+  const getFilteredDegrees = () => {
+    let availableDegrees = degrees;
+
+    // First, filter by Category if selected
+    if (selectedCategory) {
+      availableDegrees = degrees.filter(d => {
+        const degree = d.toLowerCase();
+        if (selectedCategory === 'Engineering') {
+          return degree.includes('b.e') || degree.includes('b.tech') || degree.includes('m.e') || degree.includes('m.tech') || degree.includes('architecture');
+        }
+        if (selectedCategory === 'Medical') {
+          return degree.includes('mbbs') || degree.includes('bds') || degree.includes('pharm') || degree.includes('nursing') || degree.includes('allied health') || degree.includes('bpt');
+        }
+        if (selectedCategory === 'Arts & Science') {
+          return degree.includes('b.sc') || degree.includes('b.a') || degree.includes('b.com') || degree.includes('bca') || degree.includes('m.sc') || degree.includes('m.a') || degree.includes('m.com') || degree.includes('mca');
+        }
+        if (selectedCategory === 'Management') {
+          return degree.includes('bba') || degree.includes('mba');
+        }
+        return true;
+      });
+    }
+
+    // Then apply Search Filter
+    if (!degreeSearch) return availableDegrees;
+
+    const term = degreeSearch.toLowerCase();
+
+    // Define common abbreviations map
+    const abbrMap = {
+      'ai': ['artificial intelligence', 'ai'],
+      'ds': ['data science', 'ds'],
+      'ml': ['machine learning', 'ml'],
+      'it': ['information technology', 'it'],
+      'cse': ['computer science', 'cse'],
+      'ece': ['electronics', 'ece'],
+      'eee': ['electrical', 'eee'],
+      'mech': ['mechanical', 'mech'],
+      'civil': ['civil engineering'],
+      'b.sc': ['b.sc'],
+      'm.sc': ['m.sc'],
+      'b.e': ['b.e'],
+      'b.tech': ['b.tech'],
+      'eng': ['engineering', 'english']
+    };
+
+    // Check if term matches an abbreviation key (partial or full)
+    let searchTerms = [term];
+    Object.keys(abbrMap).forEach(key => {
+      if (key.includes(term) || term.includes(key)) {
+        searchTerms = [...searchTerms, ...abbrMap[key]];
+      }
+    });
+
+    return availableDegrees.filter(degree => {
+      const d = degree.toLowerCase();
+      return searchTerms.some(st => d.includes(st));
+    });
+  };
+
+  const filteredDegrees = getFilteredDegrees();
+
+  const handleDegreeSelect = (degree) => {
+    setFilters({ ...filters, degree });
+    setDegreeSearch(degree);
+    setShowDegreeDropdown(false);
+  };
+
+  // ... existing useEffects ...
+
+  // (This part is conceptually merging into existing code, the below replacement covers the render and clear function)
+
+  // ...
 
   return (
     <div className="container animate-fade-in">
@@ -172,26 +287,133 @@ function Home() {
         )}
 
         <div style={{ maxWidth: '600px', margin: '0 auto', display: 'flex', gap: '1rem' }}>
-          <select
-            value={filters.degree}
-            onChange={e => setFilters({ ...filters, degree: e.target.value })}
-            className="glass"
-          >
-            <option value="">All Degrees</option>
-            {degrees.map(d => (
-              <option key={d} value={d}>{d}</option>
-            ))}
-          </select>
+
+          {/* Custom Searchable Dropdown for Degrees */}
+          <div style={{ position: 'relative', flex: 1 }}>
+            {showDegreeDropdown && (
+              <div
+                style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 999 }}
+                onClick={() => setShowDegreeDropdown(false)}
+              />
+            )}
+            <input
+              type="text"
+              value={degreeSearch}
+              onChange={(e) => {
+                setDegreeSearch(e.target.value);
+                setShowDegreeDropdown(true);
+                if (e.target.value === '') setFilters({ ...filters, degree: '' });
+              }}
+              onFocus={() => setShowDegreeDropdown(true)}
+              placeholder="Search Degree (e.g. AI, B.Sc)..."
+              className="glass"
+              style={{ width: '100%', cursor: 'text', paddingRight: '2.5rem' }}
+            />
+            {filters.degree ? (
+              <button
+                onClick={() => {
+                  setFilters({ ...filters, degree: '' });
+                  setDegreeSearch('');
+                }}
+                style={{
+                  position: 'absolute',
+                  right: '10px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  background: 'none',
+                  border: 'none',
+                  color: 'var(--text-secondary)',
+                  cursor: 'pointer',
+                  fontSize: '1.2rem',
+                  zIndex: 10
+                }}
+              >
+                ×
+              </button>
+            ) : (
+              <div
+                style={{
+                  position: 'absolute',
+                  right: '12px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  pointerEvents: 'none',
+                  color: 'var(--text-secondary)'
+                }}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+            )}
+
+            {showDegreeDropdown && (
+              <div className="glass" style={{
+                position: 'absolute',
+                top: '100%',
+                left: 0,
+                right: 0,
+                marginTop: '4px',
+                maxHeight: '300px',
+                overflowY: 'auto',
+                zIndex: 1000,
+                padding: '4px 0',
+                background: '#202020',
+                border: '1px solid #404040',
+                borderRadius: '6px',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
+                backdropFilter: 'none',
+                WebkitBackdropFilter: 'none'
+              }}>
+                {filteredDegrees.length > 0 ? (
+                  filteredDegrees.map(d => (
+                    <div
+                      key={d}
+                      onClick={() => handleDegreeSelect(d)}
+                      className="dropdown-item"
+                      style={{
+                        padding: '8px 12px',
+                        cursor: 'default', // Native feeling
+                        transition: 'background 0.1s',
+                        color: '#f3f4f6',
+                        fontSize: '0.95rem',
+                        fontFamily: 'inherit'
+                      }}
+                      onMouseEnter={(e) => e.target.style.background = '#374151'}
+                      onMouseLeave={(e) => e.target.style.background = 'transparent'}
+                    >
+                      {d}
+                    </div>
+                  ))
+                ) : (
+                  <div style={{ padding: '8px 12px', textAlign: 'center', color: '#9ca3af', fontSize: '0.9rem' }}>
+                    No degrees found
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
           <select
             value={filters.district}
             onChange={e => setFilters({ ...filters, district: e.target.value })}
             className="glass"
+            style={{ flex: 1 }}
           >
             <option value="">All Districts</option>
             {districts.map(d => (
               <option key={d} value={d}>{d}</option>
             ))}
           </select>
+
+          <button
+            className="btn btn-primary"
+            onClick={handleSearch}
+            style={{ padding: '0.9rem 2rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            Search
+          </button>
         </div>
       </div>
 
@@ -225,6 +447,15 @@ function Home() {
             <button className="btn btn-outline" style={{ width: '100%' }} onClick={() => {
               setFilters({ degree: '', district: '', minFee: 0, maxFee: 200000 });
               setActiveLevel(null);
+              setDegreeSearch('');
+              // Clear storage as well to reset "Back" state
+              sessionStorage.removeItem('home_colleges');
+              sessionStorage.removeItem('home_filters');
+              sessionStorage.removeItem('home_activeLevel');
+              sessionStorage.removeItem('home_selectedCategory');
+              sessionStorage.removeItem('home_degreeSearch');
+              sessionStorage.removeItem('home_showCategories');
+              sessionStorage.removeItem('home_visited'); // Allow fresh fetch next time if needed
             }}>
               Clear All Filters
             </button>
