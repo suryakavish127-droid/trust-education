@@ -332,6 +332,103 @@ INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
 ('Dhanalakshmi Srinivasan Group of Institutions', 'Tiruchirappalli', 'BPT - Bachelor of Physiotherapy', 130000, 'Physiotherapy programme focusing on rehabilitation and clinical practice.'),
 ('Dhanalakshmi Srinivasan Group of Institutions', 'Tiruchirappalli', 'B.Sc Nutrition and Dietetics', 90000, 'Programme focusing on food science, health and nutrition.');
 
+-- Dhanalakshmi Srinivasan Engineering College - Perambalur (Postgraduate)
+INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
+('Dhanalakshmi Srinivasan Engineering College', 'Perambalur', 'M.E Computer Science and Engineering', 120000, 'Postgraduate engineering program in advanced computing and software systems.'),
+('Dhanalakshmi Srinivasan Engineering College', 'Perambalur', 'M.E VLSI Design', 130000, 'Specialized postgraduate course in Very Large Scale Integration chip design.'),
+('Dhanalakshmi Srinivasan Engineering College', 'Perambalur', 'M.E Communication Systems', 115000, 'Advanced postgraduate program in communication and networking technologies.'),
+('Dhanalakshmi Srinivasan Engineering College', 'Perambalur', 'M.E Structural Engineering', 110000, 'Postgraduate course focusing on structural design and construction engineering.'),
+('Dhanalakshmi Srinivasan Engineering College', 'Perambalur', 'MBA', 120000, 'Master of Business Administration program in management and leadership.'),
+('Dhanalakshmi Srinivasan Engineering College', 'Perambalur', 'MCA', 110000, 'Master of Computer Applications focusing on software development and IT solutions.');
+
+-- Dhanalakshmi Srinivasan Arts and Science College - Perambalur (Postgraduate)
+INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
+('Dhanalakshmi Srinivasan Arts and Science College', 'Perambalur', 'M.Sc Computer Science', 80000, 'Postgraduate degree specializing in advanced computer science concepts.'),
+('Dhanalakshmi Srinivasan Arts and Science College', 'Perambalur', 'M.Sc Mathematics', 70000, 'Postgraduate degree in mathematics and applied statistics.'),
+('Dhanalakshmi Srinivasan Arts and Science College', 'Perambalur', 'M.Com', 75000, 'Postgraduate commerce program focusing on finance, accounting and business.'),
+('Dhanalakshmi Srinivasan Arts and Science College', 'Perambalur', 'M.A English', 65000, 'Postgraduate degree in English literature and language studies.'),
+('Dhanalakshmi Srinivasan Arts and Science College', 'Perambalur', 'M.Sc Biotechnology', 90000, 'Postgraduate program in biotechnology and life sciences.');
+
+-- Dhanalakshmi Srinivasan Medical College and Hospital - Perambalur (Postgraduate)
+INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
+('Dhanalakshmi Srinivasan Medical College and Hospital', 'Perambalur', 'M.Sc Nursing', 170000, 'Advanced postgraduate nursing program with clinical specialization.'),
+('Dhanalakshmi Srinivasan Medical College and Hospital', 'Perambalur', 'M.Pharmacy', 190000, 'Postgraduate pharmacy program focusing on pharmaceutical sciences.'),
+('Dhanalakshmi Srinivasan Medical College and Hospital', 'Perambalur', 'MPT - Master of Physiotherapy', 180000, 'Advanced physiotherapy postgraduate program focusing on rehabilitation.'),
+('Dhanalakshmi Srinivasan Medical College and Hospital', 'Perambalur', 'M.Sc Medical Laboratory Technology', 140000, 'Postgraduate course specializing in clinical diagnostic laboratory techniques.');
+
+-- Dhanalakshmi Srinivasan Engineering College - Perambalur (Undergraduate)
+INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
+('Dhanalakshmi Srinivasan Engineering College', 'Perambalur', 'B.E Computer Science and Engineering', 100000, 'Undergraduate engineering programme focusing on computing and software development.'),
+('Dhanalakshmi Srinivasan Engineering College', 'Perambalur', 'B.E CSE - Artificial Intelligence and Data Science', 110000, 'Specialized CSE programme focusing on AI and Data Science technologies.'),
+('Dhanalakshmi Srinivasan Engineering College', 'Perambalur', 'B.E Electronics and Communication Engineering', 90000, 'Undergraduate programme in electronics and communication systems.'),
+('Dhanalakshmi Srinivasan Engineering College', 'Perambalur', 'B.E Electrical and Electronics Engineering', 85000, 'Programme focused on power systems and electrical technologies.'),
+('Dhanalakshmi Srinivasan Engineering College', 'Perambalur', 'B.E Mechanical Engineering', 85000, 'Mechanical engineering course focusing on machines and manufacturing.'),
+('Dhanalakshmi Srinivasan Engineering College', 'Perambalur', 'B.E Civil Engineering', 80000, 'Undergraduate programme in construction and structural engineering.'),
+('Dhanalakshmi Srinivasan Engineering College', 'Perambalur', 'B.Tech Information Technology', 95000, 'Undergraduate degree in IT, networking and software development.');
+
+-- Dhanalakshmi Srinivasan Arts and Science College - Perambalur (Undergraduate)
+INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
+('Dhanalakshmi Srinivasan Arts and Science College', 'Perambalur', 'B.Sc Computer Science', 60000, 'Undergraduate degree in computer applications and programming.'),
+('Dhanalakshmi Srinivasan Arts and Science College', 'Perambalur', 'B.Sc Information Technology', 60000, 'Programme focusing on information technology and computing.'),
+('Dhanalakshmi Srinivasan Arts and Science College', 'Perambalur', 'B.Sc Mathematics', 45000, 'Undergraduate programme specializing in mathematics.'),
+('Dhanalakshmi Srinivasan Arts and Science College', 'Perambalur', 'B.Com General', 50000, 'Commerce programme focusing on finance and accounting.'),
+('Dhanalakshmi Srinivasan Arts and Science College', 'Perambalur', 'B.Com Computer Applications', 55000, 'Commerce programme integrated with computer applications.'),
+('Dhanalakshmi Srinivasan Arts and Science College', 'Perambalur', 'BBA', 55000, 'Bachelor of Business Administration focusing on management studies.'),
+('Dhanalakshmi Srinivasan Arts and Science College', 'Perambalur', 'B.A English', 45000, 'Undergraduate programme in English language and literature.');
+
+-- Dhanalakshmi Srinivasan Medical College and Hospital - Perambalur (Undergraduate)
+INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
+('Dhanalakshmi Srinivasan Medical College and Hospital', 'Perambalur', 'B.Sc Nursing', 120000, 'Undergraduate nursing programme focusing on patient care and clinical practice.'),
+('Dhanalakshmi Srinivasan Medical College and Hospital', 'Perambalur', 'B.Pharmacy', 150000, 'Undergraduate programme in pharmaceutical science and drug development.'),
+('Dhanalakshmi Srinivasan Medical College and Hospital', 'Perambalur', 'D.Pharmacy', 90000, 'Diploma course in pharmaceutical science.'),
+('Dhanalakshmi Srinivasan Medical College and Hospital', 'Perambalur', 'BPT - Bachelor of Physiotherapy', 130000, 'Undergraduate physiotherapy course focusing on rehabilitation and therapy.');
+
+-- M.A.M College of Engineering
+INSERT INTO colleges (college_name,district,degree,fees,description) VALUES
+('M.A.M College of Engineering','Tiruchirappalli','B.E Computer Science and Engineering (GQ)',75000,'UG Engineering - Government Quota'),
+('M.A.M College of Engineering','Tiruchirappalli','B.E Computer Science and Engineering (MQ)',110000,'UG Engineering - Management Quota'),
+('M.A.M College of Engineering','Tiruchirappalli','B.Tech Artificial Intelligence & Data Science (GQ)',75000,'UG Engineering - Government Quota'),
+('M.A.M College of Engineering','Tiruchirappalli','B.Tech Artificial Intelligence & Data Science (MQ)',110000,'UG Engineering - Management Quota'),
+('M.A.M College of Engineering','Tiruchirappalli','B.E Artificial Intelligence & Machine Learning (GQ)',70000,'UG Engineering - Government Quota'),
+('M.A.M College of Engineering','Tiruchirappalli','B.E Artificial Intelligence & Machine Learning (MQ)',90000,'UG Engineering - Management Quota'),
+('M.A.M College of Engineering','Tiruchirappalli','B.Tech Information Technology (GQ)',75000,'UG Engineering - Government Quota'),
+('M.A.M College of Engineering','Tiruchirappalli','B.Tech Information Technology (MQ)',90000,'UG Engineering - Management Quota'),
+('M.A.M College of Engineering','Tiruchirappalli','B.E Cyber Security (GQ)',70000,'UG Engineering - Government Quota'),
+('M.A.M College of Engineering','Tiruchirappalli','B.E Cyber Security (MQ)',85000,'UG Engineering - Management Quota'),
+('M.A.M College of Engineering','Tiruchirappalli','B.E Biomedical Engineering (GQ)',70000,'UG Engineering - Government Quota'),
+('M.A.M College of Engineering','Tiruchirappalli','B.E Biomedical Engineering (MQ)',80000,'UG Engineering - Management Quota'),
+('M.A.M College of Engineering','Tiruchirappalli','B.E Electronics and Communication Engineering (GQ)',60000,'UG Engineering - Government Quota'),
+('M.A.M College of Engineering','Tiruchirappalli','B.E Electronics and Communication Engineering (MQ)',75000,'UG Engineering - Management Quota'),
+('M.A.M College of Engineering','Tiruchirappalli','B.E Mechanical Engineering (GQ)',50000,'UG Engineering - Government Quota'),
+('M.A.M College of Engineering','Tiruchirappalli','B.E Mechanical Engineering (MQ)',55000,'UG Engineering - Management Quota'),
+('M.A.M College of Engineering','Tiruchirappalli','B.Tech Agricultural Engineering (GQ)',45000,'UG Engineering - Government Quota'),
+('M.A.M College of Engineering','Tiruchirappalli','B.Tech Agricultural Engineering (MQ)',55000,'UG Engineering - Management Quota'),
+('M.A.M College of Engineering','Tiruchirappalli','M.E Computer Science and Engineering',50000,'PG Engineering course'),
+('M.A.M College of Engineering','Tiruchirappalli','M.E Electronics and Communication Engineering',50000,'PG Engineering course'),
+('M.A.M College of Engineering','Tiruchirappalli','M.E Power Electronics & Drives',50000,'PG Engineering course'),
+('M.A.M College of Engineering','Tiruchirappalli','M.E Environmental Engineering',70000,'PG Engineering course'),
+('M.A.M College of Engineering','Tiruchirappalli','M.E Manufacturing Engineering',50000,'PG Engineering course'),
+('M.A.M College of Engineering','Tiruchirappalli','MBA',45000,'PG Management course'),
+('M.A.M College of Engineering','Tiruchirappalli','MCA',40000,'PG Computer Applications course');
+
+-- ABC Arts and Science College
+INSERT INTO colleges (college_name,district,degree,fees,description) VALUES
+('ABC Arts and Science College','Coimbatore','B.Com',25000,'UG Arts and Science course'),
+('ABC Arts and Science College','Coimbatore','B.Com Computer Applications',25000,'UG Arts and Science course'),
+('ABC Arts and Science College','Coimbatore','B.Com Professional Accounting',30000,'UG Arts and Science course'),
+('ABC Arts and Science College','Coimbatore','B.B.A',30000,'UG Arts and Science course'),
+('ABC Arts and Science College','Coimbatore','B.C.A',35000,'UG Arts and Science course'),
+('ABC Arts and Science College','Coimbatore','B.Sc Computer Science',33000,'UG Arts and Science course'),
+('ABC Arts and Science College','Coimbatore','B.Sc Information Technology',33000,'UG Arts and Science course'),
+('ABC Arts and Science College','Coimbatore','B.Sc Mathematics',23000,'UG Arts and Science course'),
+('ABC Arts and Science College','Coimbatore','B.Sc Physics',22000,'UG Arts and Science course'),
+('ABC Arts and Science College','Coimbatore','B.Sc Chemistry',24000,'UG Arts and Science course'),
+('ABC Arts and Science College','Coimbatore','B.A English',26500,'UG Arts and Science course'),
+('ABC Arts and Science College','Coimbatore','M.Com',25000,'PG Arts and Science course'),
+('ABC Arts and Science College','Coimbatore','M.Sc Computer Science',28000,'PG Arts and Science course'),
+('ABC Arts and Science College','Coimbatore','M.Sc Mathematics',20000,'PG Arts and Science course'),
+('ABC Arts and Science College','Coimbatore','M.A English',17500,'PG Arts and Science course'),
+('ABC Arts and Science College','Coimbatore','M.C.A',40000,'PG Computer Applications course');
 -- ===== Hostel Fees Dummy Data =====
 -- Note: Using college_id from the colleges table above
 INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount) VALUES
@@ -356,3 +453,115 @@ SET image_url = 'images/dhanalakshmi_trichy.jpg'
 WHERE college_name = 'Dhanalakshmi Srinivasan College' 
 AND district = 'Tiruchirappalli';
 
+-- ===== Hostel Fees for Dhanalakshmi Srinivasan Institutions =====
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'Standard', 85000, 0, 85000 
+FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan Engineering College' AND district = 'Perambalur';
+
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'Standard', 80000, 0, 80000 
+FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan Engineering College' AND district = 'Perambalur';
+
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'Standard', 90000, 0, 90000 
+FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan Medical College and Hospital' AND district = 'Perambalur';
+
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'Standard', 90000, 0, 90000 
+FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan Medical College and Hospital' AND district = 'Perambalur';
+
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'Standard', 80000, 0, 80000 
+FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan College of Engineering' AND district = 'Tiruchirappalli';
+
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'Standard', 75000, 0, 75000 
+FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan College of Engineering' AND district = 'Tiruchirappalli';
+
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'Standard', 70000, 0, 70000 
+FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan Arts and Science College' AND district = 'Tiruchirappalli';
+
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'Standard', 70000, 0, 70000 
+FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan Arts and Science College' AND district = 'Tiruchirappalli';
+
+-- ===== Hostel Fees for Indra Ganesan Institutions =====
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'Standard', 65000, 0, 65000 
+FROM colleges WHERE college_name = 'Indra Ganesan Institutions';
+
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'Standard', 60000, 0, 60000 
+FROM colleges WHERE college_name = 'Indra Ganesan Institutions';
+
+-- ===== One-Time Fees for Dhanalakshmi Srinivasan Institutions =====
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Admission Fee', 20000, 'One-time admission processing fee', 'Non-Refundable' 
+FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan Engineering College' AND district = 'Perambalur';
+
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Development Fee', 15000, 'Infrastructure development fee', 'Non-Refundable' 
+FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan Engineering College' AND district = 'Perambalur';
+
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Admission Fee', 30000, 'One-time admission processing fee', 'Non-Refundable' 
+FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan Medical College and Hospital' AND district = 'Perambalur';
+
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Laboratory Fee', 20000, 'Laboratory equipment and materials fee', 'Non-Refundable' 
+FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan Medical College and Hospital' AND district = 'Perambalur';
+
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Admission Fee', 20000, 'One-time admission processing fee', 'Non-Refundable' 
+FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan College of Engineering' AND district = 'Tiruchirappalli';
+
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Development Fee', 15000, 'Infrastructure development fee', 'Non-Refundable' 
+FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan College of Engineering' AND district = 'Tiruchirappalli';
+
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Admission Fee', 10000, 'One-time admission processing fee', 'Non-Refundable' 
+FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan Arts and Science College' AND district = 'Tiruchirappalli';
+
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Development Fee', 8000, 'Infrastructure development fee', 'Non-Refundable' 
+FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan Arts and Science College' AND district = 'Tiruchirappalli';
+
+-- ===== One-Time Fees for Indra Ganesan Institutions =====
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Admission Fee', 15000, 'One-time admission processing fee', 'Non-Refundable' 
+FROM colleges WHERE college_name = 'Indra Ganesan Institutions';
+
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Amenities Fee', 10000, 'Campus amenities and facilities', 'Non-Refundable' 
+FROM colleges WHERE college_name = 'Indra Ganesan Institutions';
+
+-- ===== Fees for M.A.M College of Engineering =====
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'Non-AC', 45000, 40000, 85000 FROM colleges WHERE college_name = 'M.A.M College of Engineering' AND district = 'Tiruchirappalli';
+
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'AC', 70000, 40000, 110000 FROM colleges WHERE college_name = 'M.A.M College of Engineering' AND district = 'Tiruchirappalli';
+
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'Non-AC', 45000, 40000, 85000 FROM colleges WHERE college_name = 'M.A.M College of Engineering' AND district = 'Tiruchirappalli';
+
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'AC', 70000, 40000, 110000 FROM colleges WHERE college_name = 'M.A.M College of Engineering' AND district = 'Tiruchirappalli';
+
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Admission Fee', 10000, 'One-time admission charge', 'Non-Refundable' FROM colleges WHERE college_name = 'M.A.M College of Engineering' AND district = 'Tiruchirappalli';
+
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Technology Fee', 5000, 'Lab and maintenance fee', 'Non-Refundable' FROM colleges WHERE college_name = 'M.A.M College of Engineering' AND district = 'Tiruchirappalli';
+
+-- ===== Fees for ABC Arts and Science College =====
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'Non-AC', 30000, 35000, 65000 FROM colleges WHERE college_name = 'ABC Arts and Science College' AND district = 'Coimbatore';
+
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'Non-AC', 30000, 35000, 65000 FROM colleges WHERE college_name = 'ABC Arts and Science College' AND district = 'Coimbatore';
+
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Admission Fee', 5000, 'One-time admission charge', 'Non-Refundable' FROM colleges WHERE college_name = 'ABC Arts and Science College' AND district = 'Coimbatore';
