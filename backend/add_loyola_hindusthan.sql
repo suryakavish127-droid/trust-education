@@ -1,9 +1,9 @@
 INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
-('Loyola College', 'Chennai', 'B.Sc Computer Science', 70000, 'Undergraduate science program with specialization in computer science.'),
-('Loyola College', 'Chennai', 'B.Com General', 65000, 'Comprehensive commerce undergraduate degree.'),
-('Loyola College', 'Chennai', 'B.A English Literature', 60000, 'Arts program focused on English language and literature.'),
-('Loyola College', 'Chennai', 'B.Sc Mathematics', 65000, 'Undergraduate degree specializing in mathematics.'),
-('Loyola College', 'Chennai', 'BBA Management', 75000, 'Bachelor of Business Administration program.');
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'B.Sc Computer Science', 70000, 'Undergraduate science program with specialization in computer science.'),
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'B.Com General', 65000, 'Comprehensive commerce undergraduate degree.'),
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'B.A English Literature', 60000, 'Arts program focused on English language and literature.'),
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'B.Sc Mathematics', 65000, 'Undergraduate degree specializing in mathematics.'),
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'BBA Management', 75000, 'Bachelor of Business Administration program.');
 
 INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
 ('Hindusthan College of Arts & Science', 'Coimbatore', 'B.Sc Computer Science', 50000, 'Computer science undergraduate degree program.'),
@@ -13,11 +13,11 @@ INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
 ('Hindusthan College of Arts & Science', 'Coimbatore', 'BCA Bachelor of Computer Applications', 60000, 'Undergraduate professional computer application program.');
 
 INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
-('Loyola College', 'Chennai', 'M.Sc Computer Science', 120000, 'Postgraduate program in advanced computer science.'),
-('Loyola College', 'Chennai', 'M.Com General', 110000, 'Master of Commerce with professional business studies.'),
-('Loyola College', 'Chennai', 'M.A English Literature', 100000, 'Advanced literature and English language postgraduate program.'),
-('Loyola College', 'Chennai', 'M.Sc Data Science', 140000, 'Specialized postgraduate degree in Data Science and Analytics.'),
-('Loyola College', 'Chennai', 'MBA Master of Business Administration', 180000, 'Professional postgraduate management program.');
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'M.Sc Computer Science', 120000, 'Postgraduate program in advanced computer science.'),
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'M.Com General', 110000, 'Master of Commerce with professional business studies.'),
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'M.A English Literature', 100000, 'Advanced literature and English language postgraduate program.'),
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'M.Sc Data Science', 140000, 'Specialized postgraduate degree in Data Science and Analytics.'),
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'MBA Master of Business Administration', 180000, 'Professional postgraduate management program.');
 
 INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
 ('Hindusthan College of Arts & Science', 'Coimbatore', 'M.Sc Computer Science', 90000, 'Advanced postgraduate computer science program.'),

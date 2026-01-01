@@ -223,6 +223,13 @@ label {
   transition: var(--transition);
 }
 
+.college-card h3 {
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  margin: 0 0 0.5rem 0 !important;
+}
+
 /* Badge */
 .badge {
   padding: 0.25rem 0.75rem;

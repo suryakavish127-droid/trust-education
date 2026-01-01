@@ -12,6 +12,76 @@ function CollegeDetails() {
   const [oneTimeFees, setOneTimeFees] = useState([]);
   const [msg, setMsg] = useState('');
 
+  // Slideshow logic
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const slideShows = {
+    'Dhanalakshmi': [
+      '/ds_slide_1.jpg',
+      '/ds_slide_2.jpg',
+      '/ds_slide_3.png',
+      '/ds_slide_4.png'
+    ],
+    'CARE': [
+      '/care_slide_1.jpg',
+      '/care_slide_2.jpg',
+      '/care_slide_3.jpg'
+    ],
+    'Imayam': [
+      '/imayam_slide_1.jpg',
+      '/imayam_slide_2.jpg',
+      '/imayam_slide_3.jpg'
+    ],
+    'Indra Ganesan': [
+      '/indra_slide_1.png',
+      '/indra_slide_2.png'
+    ],
+    'MAM': [
+      '/mam_slide_1.png',
+      '/mam_slide_2.png',
+      '/mam_slide_3.png',
+      '/mam_slide_4.png'
+    ],
+    'Hindustan': [
+      '/hindustan_slide_1.jpg',
+      '/hindustan_slide_2.jpg',
+      '/hindustan_slide_3.jpg',
+      '/hindustan_slide_4.jpg',
+      '/hindustan_slide_5.jpg'
+    ],
+    'Loyola': [
+      '/loyola_slide_1.jpg',
+      '/loyola_slide_2.jpg',
+      '/loyola_slide_3.jpg',
+      '/loyola_slide_4.jpg'
+    ],
+    'Adithya': [
+      '/adithya_slide_1.png',
+      '/adithya_slide_2.jpg',
+      '/adithya_slide_3.jpg',
+      '/adithya_slide_4.jpg',
+      '/adithya_slide_5.jpg'
+    ],
+    'Rathinam': [
+      '/rathinam_slide_1.png',
+      '/rathinam_slide_2.jpg',
+      '/rathinam_slide_3.jpg',
+      '/rathinam_slide_4.jpg'
+    ]
+  };
+
+  useEffect(() => {
+    let interval;
+    if (college) {
+      const key = Object.keys(slideShows).find(k => college.college_name.includes(k));
+      if (key) {
+        interval = setInterval(() => {
+          setCurrentImageIndex(prev => (prev + 1) % slideShows[key].length);
+        }, 3000);
+      }
+    }
+    return () => clearInterval(interval);
+  }, [college]);
+
   useEffect(() => {
     fetchCollege();
   }, [id]);
@@ -85,7 +155,11 @@ function CollegeDetails() {
       <div className="glass" style={{ marginBottom: '3rem', overflow: 'hidden' }}>
         <div style={{
           height: '350px',
-          background: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.7)), url('${college.image_url || '/dhanalakshmi-college-1.jpg'}')`,
+          backgroundImage: `url('${(() => {
+            const key = Object.keys(slideShows).find(k => college.college_name.includes(k));
+            return key ? slideShows[key][currentImageIndex] : (college.image_url || '/dhanalakshmi-college-1.jpg');
+          })()}')`,
+          backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           display: 'flex',
@@ -114,9 +188,6 @@ function CollegeDetails() {
               <div>
                 <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Consolidated Annual Fee</p>
                 <h2 style={{ fontSize: '2.5rem', margin: 0 }}>₹{college.fees.toLocaleString()}</h2>
-                <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem' }}>
-                  Hostel Fees: ₹{college.hostel_fees?.toLocaleString() || '0'} | One‑Time Fees: ₹{college.one_time_fees?.toLocaleString() || '0'}
-                </p>
               </div>
               <div style={{ textAlign: 'right' }}>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Academic Year 2025-26</p>

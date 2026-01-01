@@ -474,7 +474,7 @@ function Home() {
                 <div style={{ marginBottom: '1rem' }}>
                   <span className="badge">{college.degree}</span>
                 </div>
-                <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.25rem' }}>{college.college_name}</h3>
+                <h3 style={{ margin: '0 0 0.5rem 0' }}>{college.college_name}</h3>
                 <p style={{ margin: '0 0 1.5rem 0', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                   {college.district}
@@ -485,8 +485,6 @@ function Home() {
                     <div>
                       <span style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Annual Fee</span>
                       <span style={{ fontWeight: '800', fontSize: '1.4rem', color: 'white' }}>₹{college.fees.toLocaleString()}</span>
-                      <span style={{ marginLeft: '0.5rem', color: 'var(--text-secondary)' }}>Hostel: ₹{college.hostel_fees?.toLocaleString() || '0'}</span>
-                      <span style={{ marginLeft: '0.5rem', color: 'var(--text-secondary)' }}>One‑Time: ₹{college.one_time_fees?.toLocaleString() || '0'}</span>
                     </div>
                     <Link to={`/college/${college.college_id}`}>
                       <button className="btn btn-primary">Details</button>

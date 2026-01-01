@@ -65,6 +65,16 @@ CREATE TABLE IF NOT EXISTS one_time_fees (
   status VARCHAR(100)
 );
 
+-- Table: care_hostel_fees
+CREATE TABLE IF NOT EXISTS care_hostel_fees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    college_name VARCHAR(255),
+    gender VARCHAR(50),
+    room_type VARCHAR(50),
+    yearly_fee INT,
+    one_time_fee INT
+);
+
 -- Table: course_fees (Course-specific fee structure with FG/Non-FG categories)
 CREATE TABLE IF NOT EXISTS course_fees (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -74,6 +84,15 @@ CREATE TABLE IF NOT EXISTS course_fees (
   fg_fee INT,
   non_fg_fee INT,
   sc_sca_st VARCHAR(100)
+);
+
+-- Table: mess_fees
+CREATE TABLE IF NOT EXISTS mess_fees (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  college_name VARCHAR(255),
+  place VARCHAR(255),
+  mess_type VARCHAR(50),
+  fee_per_year INT
 );
 
 -- Insert Dummy Data for Colleges (Replaced with specific Medical College data)
@@ -87,16 +106,18 @@ INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
 ('Dhanalakshmi Srinivasan Medical College and Hospital', 'Perambalur', 'B.Sc. Accident & Emergency Care Technology', 100000, 'Training for emergency medical response and care.'),
 ('Dhanalakshmi Srinivasan Medical College and Hospital', 'Perambalur', 'B.Sc. Critical Care Technology', 100000, 'Specialized course for intensive care unit technology.'),
 ('Dhanalakshmi Srinivasan Medical College and Hospital', 'Perambalur', 'B.Sc. Radiography and Imaging Technology', 150000, 'Advancing skills in medical imaging and radiology.'),
-('MAM College of Engineering and Technology', 'Tiruchirappalli', 'I - CSE, IT & AI', 80000, 'Total Fee: 110000, Note: FG + 55000, Extra: 60000'),
-('MAM College of Engineering and Technology', 'Tiruchirappalli', 'I - ECE', 60000, 'Total Fee: 75000, Note: FG + 35000, Extra: 60000'),
-('MAM College of Engineering and Technology', 'Tiruchirappalli', 'I - EEE', 55000, 'Total Fee: 55000, Note: FG + 30000, Extra: 60000'),
-('MAM College of Engineering and Technology', 'Tiruchirappalli', 'I - MECH', 50000, 'Total Fee: 55000, Note: FG + 25000, Extra: 60000'),
-('MAM College of Engineering and Technology', 'Tiruchirappalli', 'I - CIVIL', 50000, 'Total Fee: 55000, Note: FG + 25000, Extra: 60000'),
-('MAM College of Engineering and Technology', 'Tiruchirappalli', 'II LE - CSE, IT, AI & ECE', 55000, 'Total Fee: 55000, Note: FG + 30000, Extra: 60000'),
-('MAM College of Engineering and Technology', 'Tiruchirappalli', 'II LE - EEE', 55000, 'Total Fee: 55000, Note: FG + 30000, Extra: 60000'),
-('MAM College of Engineering and Technology', 'Tiruchirappalli', 'II LE - CIVIL & MECH', 50000, 'Total Fee: 55000, Note: FG + 25000, Extra: 60000'),
-('MAM College of Engineering and Technology', 'Tiruchirappalli', 'M.E - Structural Engineering', 50000, 'Total Fee: 55000'),
-('MAM College of Engineering and Technology', 'Tiruchirappalli', 'M.E - VLSI & CAD / CAM', 50000, 'Total Fee: 55000');
+('M.A.M College of Engineering and Technology', 'Tiruchirappalli', 'I - CSE, IT & AI', 80000, 'Total Fee: 110000, Note: FG + 55000, Extra: 60000'),
+('M.A.M College of Engineering and Technology', 'Tiruchirappalli', 'I - ECE', 60000, 'Total Fee: 75000, Note: FG + 35000, Extra: 60000'),
+('M.A.M College of Engineering and Technology', 'Tiruchirappalli', 'I - EEE', 55000, 'Total Fee: 55000, Note: FG + 30000, Extra: 60000'),
+('M.A.M College of Engineering and Technology', 'Tiruchirappalli', 'I - MECH', 50000, 'Total Fee: 55000, Note: FG + 25000, Extra: 60000'),
+('M.A.M College of Engineering and Technology', 'Tiruchirappalli', 'I - CIVIL', 50000, 'Total Fee: 55000, Note: FG + 25000, Extra: 60000'),
+('M.A.M College of Engineering and Technology', 'Tiruchirappalli', 'II LE - CSE, IT, AI & ECE', 55000, 'Total Fee: 55000, Note: FG + 30000, Extra: 60000'),
+('M.A.M College of Engineering and Technology', 'Tiruchirappalli', 'II LE - EEE', 55000, 'Total Fee: 55000, Note: FG + 30000, Extra: 60000'),
+('M.A.M College of Engineering and Technology', 'Tiruchirappalli', 'II LE - CIVIL & MECH', 50000, 'Total Fee: 55000, Note: FG + 25000, Extra: 60000'),
+('M.A.M College of Engineering and Technology', 'Tiruchirappalli', 'M.E - Structural Engineering', 50000, 'Total Fee: 55000'),
+('M.A.M College of Engineering and Technology', 'Tiruchirappalli', 'M.E - VLSI & CAD / CAM', 50000, 'Total Fee: 55000');
+
+
 INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
 ('Adithya Institute of Technology', 'Coimbatore', 'B.E AI & DS', 110000, 'UG Engineering - Government Quota'),
 ('Adithya Institute of Technology', 'Coimbatore', 'B.E CSE', 100000, 'UG Engineering - Government Quota'),
@@ -275,14 +296,14 @@ INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
 ('Hindustan', 'Chennai', 'MBA - ELITE', 115000, 'Elite Master of Business Administration program with advanced management training.'),
 ('Hindustan', 'Chennai', 'MBA (M)', 90000, 'Master of Business Administration program.'),
 ('Hindustan', 'Chennai', 'MCA (M)', 65000, 'Master of Computer Applications program.'),
-('Loyola', 'Chennai', 'B.E Computer Science and Engineering', 50000, 'Intake: 120. Tuition fee only.'),
-('Loyola', 'Chennai', 'B.E Computer Science and Engineering (CS)', 50000, 'Intake: 60. Tuition fee only.'),
-('Loyola', 'Chennai', 'B.E Electrical and Electronics Engineering', 50000, 'Intake: 30. Tuition fee only.'),
-('Loyola', 'Chennai', 'B.E Electronics and Communication Engineering', 50000, 'Intake: 60. Tuition fee only.'),
-('Loyola', 'Chennai', 'B.E Mechanical Engineering', 50000, 'Intake: 30. Tuition fee only.'),
-('Loyola', 'Chennai', 'B.Tech Information Technology', 50000, 'Intake: 120. Tuition fee only.'),
-('Loyola', 'Chennai', 'B.Tech Artificial Intelligence and Data Science', 50000, 'Intake: 120. Tuition fee only.'),
-('Loyola', 'Chennai', 'MBA', 50000, 'Intake: 90. Tuition fee only.'),
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'B.E Computer Science and Engineering', 50000, 'Intake: 120. Tuition fee only.'),
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'B.E Computer Science and Engineering (CS)', 50000, 'Intake: 60. Tuition fee only.'),
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'B.E Electrical and Electronics Engineering', 50000, 'Intake: 30. Tuition fee only.'),
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'B.E Electronics and Communication Engineering', 50000, 'Intake: 60. Tuition fee only.'),
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'B.E Mechanical Engineering', 50000, 'Intake: 30. Tuition fee only.'),
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'B.Tech Information Technology', 50000, 'Intake: 120. Tuition fee only.'),
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'B.Tech Artificial Intelligence and Data Science', 50000, 'Intake: 120. Tuition fee only.'),
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'MBA', 50000, 'Intake: 90. Tuition fee only.'),
 ('Sri Ramakrishna College of Engineering', 'Coimbatore', 'B.E Computer Science and Engineering', 65000, 'Undergraduate engineering program in Computer Science. Tuition fee only.'),
 ('Sri Ramakrishna College of Engineering', 'Coimbatore', 'B.Tech Artificial Intelligence and Data Science', 65000, 'Undergraduate program in Artificial Intelligence and Data Science. Tuition fee only.'),
 ('Sri Ramakrishna College of Engineering', 'Coimbatore', 'B.E Cyber Security', 55000, 'Undergraduate engineering program in Cyber Security. Tuition fee only.'),
@@ -433,13 +454,13 @@ INSERT INTO colleges (college_name,district,degree,fees,description) VALUES
 -- Note: Using college_id from the colleges table above
 INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount) VALUES
 -- Dhanalakshmi Srinivasan Medical College (college_id will be auto-assigned, typically 1999)
-(1999, 'Boys Hostel', 'AC', 50000, 15000, 65000),
-(1999, 'Boys Hostel', 'Non-AC', 40000, 15000, 55000),
-(1999, 'Girls Hostel', 'AC', 48000, 15000, 63000),
-(1999, 'Girls Hostel', 'Non-AC', 38000, 15000, 53000),
+(1999, 'Boys Hostel', 'AC', 50000, 20000, 70000),
+(1999, 'Boys Hostel', 'Non-AC', 40000, 16000, 56000),
+(1999, 'Girls Hostel', 'AC', 48000, 19200, 67200),
+(1999, 'Girls Hostel', 'Non-AC', 38000, 15200, 53200),
 -- MAM College of Engineering (college_id will be auto-assigned, typically 2000)
-(2000, 'Boys Hostel', 'AC', 52000, 16000, 68000),
-(2000, 'Girls Hostel', 'Non-AC', 39000, 14000, 53000);
+(2000, 'Boys Hostel', 'AC', 52000, 20800, 72800),
+(2000, 'Girls Hostel', 'Non-AC', 39000, 15600, 54600);
 
 -- Insert Dummy Admin (Password: hari@2025)
 INSERT INTO admin (username, password) VALUES ('hari1vkp', '$2b$10$YourHashedPasswordHere') ON DUPLICATE KEY UPDATE username=username;
@@ -455,44 +476,44 @@ AND district = 'Tiruchirappalli';
 
 -- ===== Hostel Fees for Dhanalakshmi Srinivasan Institutions =====
 INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
-SELECT college_id, 'Boys Hostel', 'Standard', 85000, 0, 85000 
+SELECT college_id, 'Boys Hostel', 'Standard', 85000, 34000, 119000 
 FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan Engineering College' AND district = 'Perambalur';
 
 INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
-SELECT college_id, 'Girls Hostel', 'Standard', 80000, 0, 80000 
+SELECT college_id, 'Girls Hostel', 'Standard', 80000, 32000, 112000 
 FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan Engineering College' AND district = 'Perambalur';
 
 INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
-SELECT college_id, 'Boys Hostel', 'Standard', 90000, 0, 90000 
+SELECT college_id, 'Boys Hostel', 'Standard', 90000, 36000, 126000 
 FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan Medical College and Hospital' AND district = 'Perambalur';
 
 INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
-SELECT college_id, 'Girls Hostel', 'Standard', 90000, 0, 90000 
+SELECT college_id, 'Girls Hostel', 'Standard', 90000, 36000, 126000 
 FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan Medical College and Hospital' AND district = 'Perambalur';
 
 INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
-SELECT college_id, 'Boys Hostel', 'Standard', 80000, 0, 80000 
+SELECT college_id, 'Boys Hostel', 'Standard', 80000, 32000, 112000 
 FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan College of Engineering' AND district = 'Tiruchirappalli';
 
 INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
-SELECT college_id, 'Girls Hostel', 'Standard', 75000, 0, 75000 
+SELECT college_id, 'Girls Hostel', 'Standard', 75000, 30000, 105000 
 FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan College of Engineering' AND district = 'Tiruchirappalli';
 
 INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
-SELECT college_id, 'Boys Hostel', 'Standard', 70000, 0, 70000 
+SELECT college_id, 'Boys Hostel', 'Standard', 70000, 28000, 98000 
 FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan Arts and Science College' AND district = 'Tiruchirappalli';
 
 INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
-SELECT college_id, 'Girls Hostel', 'Standard', 70000, 0, 70000 
+SELECT college_id, 'Girls Hostel', 'Standard', 70000, 28000, 98000 
 FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan Arts and Science College' AND district = 'Tiruchirappalli';
 
 -- ===== Hostel Fees for Indra Ganesan Institutions =====
 INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
-SELECT college_id, 'Boys Hostel', 'Standard', 65000, 0, 65000 
+SELECT college_id, 'Boys Hostel', 'Standard', 65000, 26000, 91000 
 FROM colleges WHERE college_name = 'Indra Ganesan Institutions';
 
 INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
-SELECT college_id, 'Girls Hostel', 'Standard', 60000, 0, 60000 
+SELECT college_id, 'Girls Hostel', 'Standard', 60000, 24000, 84000 
 FROM colleges WHERE college_name = 'Indra Ganesan Institutions';
 
 -- ===== One-Time Fees for Dhanalakshmi Srinivasan Institutions =====
@@ -539,16 +560,16 @@ FROM colleges WHERE college_name = 'Indra Ganesan Institutions';
 
 -- ===== Fees for M.A.M College of Engineering =====
 INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
-SELECT college_id, 'Boys Hostel', 'Non-AC', 45000, 40000, 85000 FROM colleges WHERE college_name = 'M.A.M College of Engineering' AND district = 'Tiruchirappalli';
+SELECT college_id, 'Boys Hostel', 'Non-AC', 45000, 18000, 63000 FROM colleges WHERE college_name = 'M.A.M College of Engineering' AND district = 'Tiruchirappalli';
 
 INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
-SELECT college_id, 'Boys Hostel', 'AC', 70000, 40000, 110000 FROM colleges WHERE college_name = 'M.A.M College of Engineering' AND district = 'Tiruchirappalli';
+SELECT college_id, 'Boys Hostel', 'AC', 70000, 28000, 98000 FROM colleges WHERE college_name = 'M.A.M College of Engineering' AND district = 'Tiruchirappalli';
 
 INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
-SELECT college_id, 'Girls Hostel', 'Non-AC', 45000, 40000, 85000 FROM colleges WHERE college_name = 'M.A.M College of Engineering' AND district = 'Tiruchirappalli';
+SELECT college_id, 'Girls Hostel', 'Non-AC', 45000, 18000, 63000 FROM colleges WHERE college_name = 'M.A.M College of Engineering' AND district = 'Tiruchirappalli';
 
 INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
-SELECT college_id, 'Girls Hostel', 'AC', 70000, 40000, 110000 FROM colleges WHERE college_name = 'M.A.M College of Engineering' AND district = 'Tiruchirappalli';
+SELECT college_id, 'Girls Hostel', 'AC', 70000, 28000, 98000 FROM colleges WHERE college_name = 'M.A.M College of Engineering' AND district = 'Tiruchirappalli';
 
 INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
 SELECT college_id, 'Admission Fee', 10000, 'One-time admission charge', 'Non-Refundable' FROM colleges WHERE college_name = 'M.A.M College of Engineering' AND district = 'Tiruchirappalli';
@@ -558,21 +579,21 @@ SELECT college_id, 'Technology Fee', 5000, 'Lab and maintenance fee', 'Non-Refun
 
 -- ===== Fees for ABC Arts and Science College =====
 INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
-SELECT college_id, 'Boys Hostel', 'Non-AC', 30000, 35000, 65000 FROM colleges WHERE college_name = 'ABC Arts and Science College' AND district = 'Coimbatore';
+SELECT college_id, 'Boys Hostel', 'Non-AC', 30000, 12000, 42000 FROM colleges WHERE college_name = 'ABC Arts and Science College' AND district = 'Coimbatore';
 
 INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
-SELECT college_id, 'Girls Hostel', 'Non-AC', 30000, 35000, 65000 FROM colleges WHERE college_name = 'ABC Arts and Science College' AND district = 'Coimbatore';
+SELECT college_id, 'Girls Hostel', 'Non-AC', 30000, 12000, 42000 FROM colleges WHERE college_name = 'ABC Arts and Science College' AND district = 'Coimbatore';
 
 INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
 SELECT college_id, 'Admission Fee', 5000, 'One-time admission charge', 'Non-Refundable' FROM colleges WHERE college_name = 'ABC Arts and Science College' AND district = 'Coimbatore';
 
 -- Added Loyola and Hindusthan Data
 INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
-('Loyola College', 'Chennai', 'B.Sc Computer Science', 70000, 'Undergraduate science program with specialization in computer science.'),
-('Loyola College', 'Chennai', 'B.Com General', 65000, 'Comprehensive commerce undergraduate degree.'),
-('Loyola College', 'Chennai', 'B.A English Literature', 60000, 'Arts program focused on English language and literature.'),
-('Loyola College', 'Chennai', 'B.Sc Mathematics', 65000, 'Undergraduate degree specializing in mathematics.'),
-('Loyola College', 'Chennai', 'BBA Management', 75000, 'Bachelor of Business Administration program.');
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'B.Sc Computer Science', 70000, 'Undergraduate science program with specialization in computer science.'),
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'B.Com General', 65000, 'Comprehensive commerce undergraduate degree.'),
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'B.A English Literature', 60000, 'Arts program focused on English language and literature.'),
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'B.Sc Mathematics', 65000, 'Undergraduate degree specializing in mathematics.'),
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'BBA Management', 75000, 'Bachelor of Business Administration program.');
 
 INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
 ('Hindusthan College of Arts & Science', 'Coimbatore', 'B.Sc Computer Science', 50000, 'Computer science undergraduate degree program.'),
@@ -582,11 +603,11 @@ INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
 ('Hindusthan College of Arts & Science', 'Coimbatore', 'BCA Bachelor of Computer Applications', 60000, 'Undergraduate professional computer application program.');
 
 INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
-('Loyola College', 'Chennai', 'M.Sc Computer Science', 120000, 'Postgraduate program in advanced computer science.'),
-('Loyola College', 'Chennai', 'M.Com General', 110000, 'Master of Commerce with professional business studies.'),
-('Loyola College', 'Chennai', 'M.A English Literature', 100000, 'Advanced literature and English language postgraduate program.'),
-('Loyola College', 'Chennai', 'M.Sc Data Science', 140000, 'Specialized postgraduate degree in Data Science and Analytics.'),
-('Loyola College', 'Chennai', 'MBA Master of Business Administration', 180000, 'Professional postgraduate management program.');
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'M.Sc Computer Science', 120000, 'Postgraduate program in advanced computer science.'),
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'M.Com General', 110000, 'Master of Commerce with professional business studies.'),
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'M.A English Literature', 100000, 'Advanced literature and English language postgraduate program.'),
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'M.Sc Data Science', 140000, 'Specialized postgraduate degree in Data Science and Analytics.'),
+('LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI', 'Chennai', 'MBA Master of Business Administration', 180000, 'Professional postgraduate management program.');
 
 INSERT INTO colleges (college_name, district, degree, fees, description) VALUES
 ('Hindusthan College of Arts & Science', 'Coimbatore', 'M.Sc Computer Science', 90000, 'Advanced postgraduate computer science program.'),
@@ -606,19 +627,268 @@ INSERT INTO colleges (college_name, district, degree, fees, description, image_u
 
 -- Add Fees for DCS Trichy
 INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
-SELECT college_id, 'Boys Hostel', 'Non-AC', 45000, 35000, 80000 
+SELECT college_id, 'Boys Hostel', 'Non-AC', 45000, 18000, 63000 
 FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan College' AND district = 'Tiruchirappalli' LIMIT 1;
 
 INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
-SELECT college_id, 'Girls Hostel', 'Non-AC', 45000, 35000, 80000 
+SELECT college_id, 'Girls Hostel', 'Non-AC', 45000, 18000, 63000 
 FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan College' AND district = 'Tiruchirappalli' LIMIT 1;
 
 INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
 SELECT college_id, 'Admission Fee', 10000, 'Registration and Admin', 'Non-Refundable' 
 FROM colleges WHERE college_name = 'Dhanalakshmi Srinivasan College' AND district = 'Tiruchirappalli' LIMIT 1;
 
--- Update Loyola College with image URL
+-- Update LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI with image URL
 UPDATE colleges 
 SET image_url = '/loyola_college_chennai.jpg'
-WHERE college_name = 'Loyola College' 
+WHERE college_name = 'LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI' 
 AND district = 'Chennai';
+
+-- CARE College Hostel Fees Data
+INSERT INTO care_hostel_fees 
+(college_name, gender, room_type, yearly_fee, one_time_fee) VALUES
+('CARE College of Engineering', 'Boys', 'AC', 90000, 15000),
+('CARE College of Engineering', 'Boys', 'Non-AC', 65000, 15000),
+('CARE College of Engineering', 'Girls', 'AC', 90000, 15000),
+('CARE College of Engineering', 'Girls', 'Non-AC', 65000, 15000);
+
+-- Imayam College Hostel Fees Data
+INSERT INTO care_hostel_fees 
+(college_name, gender, room_type, yearly_fee, one_time_fee) VALUES
+('Imayam College of Engineering', 'Boys', 'AC', 85000, 12000),
+('Imayam College of Engineering', 'Boys', 'Non-AC', 60000, 12000),
+('Imayam College of Engineering', 'Girls', 'AC', 85000, 12000),
+('Imayam College of Engineering', 'Girls', 'Non-AC', 60000, 12000);
+
+-- Sync CARE Hostel Fees to unified system
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'AC', 90000, 36000, 126000 FROM colleges WHERE college_name = 'CARE College of Engineering';
+
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'Non-AC', 65000, 26000, 91000 FROM colleges WHERE college_name = 'CARE College of Engineering';
+
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'AC', 90000, 36000, 126000 FROM colleges WHERE college_name = 'CARE College of Engineering';
+
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'Non-AC', 65000, 26000, 91000 FROM colleges WHERE college_name = 'CARE College of Engineering';
+
+-- Sync Imayam Hostel Fees to unified system
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'AC', 85000, 34000, 119000 FROM colleges WHERE college_name = 'Imayam College of Engineering';
+
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'Non-AC', 60000, 24000, 84000 FROM colleges WHERE college_name = 'Imayam College of Engineering';
+
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'AC', 85000, 34000, 119000 FROM colleges WHERE college_name = 'Imayam College of Engineering';
+
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'Non-AC', 60000, 24000, 84000 FROM colleges WHERE college_name = 'Imayam College of Engineering';
+
+-- Sync Adithya Hostel Fees to unified system
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'AC', 90000, 36000, 126000 FROM colleges WHERE college_name = 'Adithya Institute of Technology';
+
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'Non-AC', 65000, 26000, 91000 FROM colleges WHERE college_name = 'Adithya Institute of Technology';
+
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'AC', 90000, 36000, 126000 FROM colleges WHERE college_name = 'Adithya Institute of Technology';
+
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'Non-AC', 65000, 26000, 91000 FROM colleges WHERE college_name = 'Adithya Institute of Technology';
+
+-- Batch Sync for Arts, Science and Engineering colleges
+-- Adithya College of Arts and Science
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'AC', 95000, 38000, 133000 FROM colleges WHERE college_name = 'Adithya College of Arts and Science';
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'Non-AC', 70000, 28000, 98000 FROM colleges WHERE college_name = 'Adithya College of Arts and Science';
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'AC', 95000, 38000, 133000 FROM colleges WHERE college_name = 'Adithya College of Arts and Science';
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'Non-AC', 70000, 28000, 98000 FROM colleges WHERE college_name = 'Adithya College of Arts and Science';
+
+-- Rathinam Group of Institutions
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'AC', 92000, 36800, 128800 FROM colleges WHERE college_name = 'Rathinam Group of Institutions';
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'Non-AC', 68000, 27200, 95200 FROM colleges WHERE college_name = 'Rathinam Group of Institutions';
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'AC', 92000, 36800, 128800 FROM colleges WHERE college_name = 'Rathinam Group of Institutions';
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'Non-AC', 68000, 27200, 95200 FROM colleges WHERE college_name = 'Rathinam Group of Institutions';
+
+-- Nehru College
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'AC', 90000, 36000, 126000 FROM colleges WHERE college_name = 'Nehru College';
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'Non-AC', 66000, 26400, 92400 FROM colleges WHERE college_name = 'Nehru College';
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'AC', 90000, 36000, 126000 FROM colleges WHERE college_name = 'Nehru College';
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'Non-AC', 66000, 26400, 92400 FROM colleges WHERE college_name = 'Nehru College';
+
+-- Sri Ramakrishna College of Engineering
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'AC', 97000, 38800, 135800 FROM colleges WHERE college_name = 'Sri Ramakrishna College of Engineering';
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'Non-AC', 71000, 28400, 99400 FROM colleges WHERE college_name = 'Sri Ramakrishna College of Engineering';
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'AC', 97000, 38800, 135800 FROM colleges WHERE college_name = 'Sri Ramakrishna College of Engineering';
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'Non-AC', 71000, 28400, 99400 FROM colleges WHERE college_name = 'Sri Ramakrishna College of Engineering';
+
+-- Hindusthan College of Arts & Science
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'AC', 94000, 37600, 131600 FROM colleges WHERE college_name = 'Hindusthan College of Arts & Science';
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'Non-AC', 69000, 27600, 96600 FROM colleges WHERE college_name = 'Hindusthan College of Arts & Science';
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'AC', 94000, 37600, 131600 FROM colleges WHERE college_name = 'Hindusthan College of Arts & Science';
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'Non-AC', 69000, 27600, 96600 FROM colleges WHERE college_name = 'Hindusthan College of Arts & Science';
+
+-- LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'AC', 98000, 39200, 137200 FROM colleges WHERE college_name = 'LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI';
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'Non-AC', 73000, 29200, 102200 FROM colleges WHERE college_name = 'LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI';
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'AC', 98000, 39200, 137200 FROM colleges WHERE college_name = 'LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI';
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'Non-AC', 73000, 29200, 102200 FROM colleges WHERE college_name = 'LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI';
+
+-- Sync Adithya One-Time Fees to unified system
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Admission Fee', 15000, 'One-time admission charge for Adithya', 'Non-Refundable' FROM colleges WHERE college_name = 'Adithya Institute of Technology';
+
+-- Batch Sync One-Time Fees
+-- Adithya College of Arts and Science
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Admission Fee', 15000, 'One-time admission charge', 'Non-Refundable' FROM colleges WHERE college_name = 'Adithya College of Arts and Science';
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Caution Deposit', 10000, 'Refundable security deposit', 'Refundable' FROM colleges WHERE college_name = 'Adithya College of Arts and Science';
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Library Fee', 5000, 'One-time library access fee', 'Non-Refundable' FROM colleges WHERE college_name = 'Adithya College of Arts and Science';
+
+-- Rathinam Group of Institutions
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Admission Fee', 16000, 'One-time admission charge', 'Non-Refundable' FROM colleges WHERE college_name = 'Rathinam Group of Institutions';
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Caution Deposit', 9000, 'Refundable security deposit', 'Refundable' FROM colleges WHERE college_name = 'Rathinam Group of Institutions';
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Lab Fee', 7000, 'One-time lab usage fee', 'Non-Refundable' FROM colleges WHERE college_name = 'Rathinam Group of Institutions';
+
+-- Nehru College
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Admission Fee', 15500, 'One-time admission charge', 'Non-Refundable' FROM colleges WHERE college_name = 'Nehru College';
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Caution Deposit', 9500, 'Refundable security deposit', 'Refundable' FROM colleges WHERE college_name = 'Nehru College';
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Library Fee', 6000, 'One-time library access fee', 'Non-Refundable' FROM colleges WHERE college_name = 'Nehru College';
+
+-- Sri Ramakrishna College of Engineering
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Admission Fee', 17000, 'One-time admission charge', 'Non-Refundable' FROM colleges WHERE college_name = 'Sri Ramakrishna College of Engineering';
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Caution Deposit', 12000, 'Refundable security deposit', 'Refundable' FROM colleges WHERE college_name = 'Sri Ramakrishna College of Engineering';
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Lab Fee', 8000, 'One-time lab usage fee', 'Non-Refundable' FROM colleges WHERE college_name = 'Sri Ramakrishna College of Engineering';
+
+-- Hindusthan College of Arts & Science
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Admission Fee', 16500, 'One-time admission charge', 'Non-Refundable' FROM colleges WHERE college_name = 'Hindusthan College of Arts & Science';
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Caution Deposit', 11000, 'Refundable security deposit', 'Refundable' FROM colleges WHERE college_name = 'Hindusthan College of Arts & Science';
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Library Fee', 5000, 'One-time library access fee', 'Non-Refundable' FROM colleges WHERE college_name = 'Hindusthan College of Arts & Science';
+
+-- LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Admission Fee', 18000, 'One-time admission charge', 'Non-Refundable' FROM colleges WHERE college_name = 'LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI';
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Caution Deposit', 12000, 'Refundable security deposit', 'Refundable' FROM colleges WHERE college_name = 'LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI';
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Library Fee', 6000, 'One-time library access fee', 'Non-Refundable' FROM colleges WHERE college_name = 'LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI';
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Lab Fee', 8500, 'One-time lab usage fee', 'Non-Refundable' FROM colleges WHERE college_name = 'LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI';
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Sports Fee', 5000, 'One-time sports activity fee', 'Non-Refundable' FROM colleges WHERE college_name = 'LOYOLA INSTITUTE OF TECHNOLOGY, CHENNAI';
+
+-- Sync CARE One-Time Fees to unified system
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Admission Fee', 15000, 'One-time admission charge for CARE', 'Non-Refundable' FROM colleges WHERE college_name = 'CARE College of Engineering';
+
+-- Sync Imayam One-Time Fees to unified system
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Admission Fee', 12000, 'One-time admission charge for Imayam', 'Non-Refundable' FROM colleges WHERE college_name = 'Imayam College of Engineering';
+
+-- Add Dhanalakshmi Srinivasan College of Engineering and Technology, Perambalur
+INSERT INTO colleges (college_name, district, degree, fees, description, image_url) VALUES
+('Dhanalakshmi Srinivasan College of Engineering and Technology', 'Perambalur', 'B.E Aeronautical Engineering', 65000, 'UG First Year | Govt: 65,000 | Management: 75,000', 'dscet.jpg'),
+('Dhanalakshmi Srinivasan College of Engineering and Technology', 'Perambalur', 'B.E Agricultural Engineering', 70000, 'UG First Year | Govt: 70,000 | Management: 90,000', 'dscet.jpg'),
+('Dhanalakshmi Srinivasan College of Engineering and Technology', 'Perambalur', 'B.Tech Artificial Intelligence & Data Science', 110000, 'UG First Year | Govt: 1,10,000 | Management: 1,35,000', 'dscet.jpg'),
+('Dhanalakshmi Srinivasan College of Engineering and Technology', 'Perambalur', 'B.E Biomedical Engineering', 85000, 'UG First Year | Govt: 85,000 | Management: 1,05,000', 'dscet.jpg'),
+('Dhanalakshmi Srinivasan College of Engineering and Technology', 'Perambalur', 'B.E Civil Engineering', 60000, 'UG First Year | Govt: 60,000 | Management: 65,000', 'dscet.jpg'),
+('Dhanalakshmi Srinivasan College of Engineering and Technology', 'Perambalur', 'B.E Computer Science and Engineering', 110000, 'UG First Year | Govt: 1,10,000 | Management: 1,35,000', 'dscet.jpg'),
+('Dhanalakshmi Srinivasan College of Engineering and Technology', 'Perambalur', 'B.E CSE (Cyber Security)', 110000, 'UG First Year | Govt: 1,10,000 | Management: 1,30,000', 'dscet.jpg'),
+('Dhanalakshmi Srinivasan College of Engineering and Technology', 'Perambalur', 'B.E CSE (AI & ML)', 110000, 'UG First Year | Govt: 1,10,000 | Management: 1,30,000', 'dscet.jpg'),
+('Dhanalakshmi Srinivasan College of Engineering and Technology', 'Perambalur', 'B.E Electrical and Electronics Engineering', 75000, 'UG First Year | Govt: 75,000 | Management: 80,000', 'dscet.jpg'),
+('Dhanalakshmi Srinivasan College of Engineering and Technology', 'Perambalur', 'B.E Electronics and Communication Engineering', 85000, 'UG First Year | Govt: 85,000 | Management: 95,000', 'dscet.jpg'),
+('Dhanalakshmi Srinivasan College of Engineering and Technology', 'Perambalur', 'B.Tech Information Technology', 110000, 'UG First Year | Govt: 1,10,000 | Management: 1,35,000', 'dscet.jpg');
+
+INSERT INTO colleges (college_name, district, degree, fees, description, image_url) VALUES
+('Dhanalakshmi Srinivasan College of Engineering and Technology', 'Perambalur', 'B.E Aeronautical Engineering (Lateral Entry)', 60000, 'UG Direct Second Year | Govt: 60,000 | Management: 70,000', 'dscet.jpg'),
+('Dhanalakshmi Srinivasan College of Engineering and Technology', 'Perambalur', 'B.E Agricultural Engineering (Lateral Entry)', 60000, 'UG Direct Second Year | Govt: 60,000 | Management: 90,000', 'dscet.jpg'),
+('Dhanalakshmi Srinivasan College of Engineering and Technology', 'Perambalur', 'B.Tech Artificial Intelligence & Data Science (Lateral Entry)', 100000, 'UG Direct Second Year | Govt: 1,00,000 | Management: 1,20,000', 'dscet.jpg'),
+('Dhanalakshmi Srinivasan College of Engineering and Technology', 'Perambalur', 'B.E Computer Science and Engineering (Lateral Entry)', 100000, 'UG Direct Second Year | Govt: 1,00,000 | Management: 1,30,000', 'dscet.jpg');
+
+INSERT INTO colleges (college_name, district, degree, fees, description, image_url) VALUES
+('Dhanalakshmi Srinivasan College of Engineering and Technology', 'Perambalur', 'M.E Computer Science and Engineering', 70000, 'PG First Year | Govt & Management Fees Same', 'dscet.jpg'),
+('Dhanalakshmi Srinivasan College of Engineering and Technology', 'Perambalur', 'M.E Communication Systems', 50000, 'PG First Year | Govt & Management Fees Same', 'dscet.jpg'),
+('Dhanalakshmi Srinivasan College of Engineering and Technology', 'Perambalur', 'MBA', 90000, 'PG First Year | Govt & Management Fees Same', 'dscet.jpg'),
+('Dhanalakshmi Srinivasan College of Engineering and Technology', 'Perambalur', 'MCA', 65000, 'PG First Year | Govt & Management Fees Same', 'dscet.jpg');
+
+-- Add New Prince Shri Bhavani College of Engineering and Technology
+INSERT INTO colleges (college_name, district, degree, fees, description, image_url) VALUES
+('New Prince Shri Bhavani College of Engineering and Technology', 'Chennai', 'B.E. Computer Science Engineering', 85000, 'UG Course | Govt: 85,000 | Mgt: 1,20,000', 'new_prince.jpg'),
+('New Prince Shri Bhavani College of Engineering and Technology', 'Chennai', 'B.E. CSE - Cyber Security', 85000, 'UG Course | Govt: 85,000 | Mgt: 1,20,000', 'new_prince.jpg'),
+('New Prince Shri Bhavani College of Engineering and Technology', 'Chennai', 'B.E. Electrical & Electronics Engineering', 75000, 'UG Course | Govt: 75,000 | Mgt: 75,000', 'new_prince.jpg'),
+('New Prince Shri Bhavani College of Engineering and Technology', 'Chennai', 'B.E. Electronics & Communication Engineering', 80000, 'UG Course | Govt: 80,000 | Mgt: 1,15,000', 'new_prince.jpg'),
+('New Prince Shri Bhavani College of Engineering and Technology', 'Chennai', 'B.E. Mechanical Engineering', 75000, 'UG Course | Govt: 75,000 | Mgt: 75,000', 'new_prince.jpg'),
+('New Prince Shri Bhavani College of Engineering and Technology', 'Chennai', 'B.Tech Information Technology', 85000, 'UG Course | Govt: 85,000 | Mgt: 1,20,000', 'new_prince.jpg'),
+('New Prince Shri Bhavani College of Engineering and Technology', 'Chennai', 'B.Tech Artificial Intelligence and Data Science', 85000, 'UG Course | Govt: 85,000 | Mgt: 1,20,000', 'new_prince.jpg'),
+('New Prince Shri Bhavani College of Engineering and Technology', 'Chennai', 'M.E. Applied Electronics', 50000, 'PG Course | Govt & Mgt: 50,000', 'new_prince.jpg'),
+('New Prince Shri Bhavani College of Engineering and Technology', 'Chennai', 'M.C.A. Master of Computer Application', 70000, 'PG Course | Govt & Mgt: 70,000', 'new_prince.jpg'),
+('New Prince Shri Bhavani College of Engineering and Technology', 'Chennai', 'M.B.A. Master of Business Administration', 70000, 'PG Course | Govt & Mgt: 70,000', 'new_prince.jpg'),
+('New Prince Shri Bhavani College of Engineering and Technology', 'Chennai', 'Lateral Entry', 80000, 'Lateral Entry Course | Govt: 80,000 | Mgt: 1,15,000', 'new_prince.jpg');
+
+-- Add Hostel Fees for New Prince
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'AC', 90000, 36000, 126000 FROM colleges WHERE college_name = 'New Prince Shri Bhavani College of Engineering and Technology';
+
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Boys Hostel', 'Non-AC', 70000, 28000, 98000 FROM colleges WHERE college_name = 'New Prince Shri Bhavani College of Engineering and Technology';
+
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'AC', 90000, 36000, 126000 FROM colleges WHERE college_name = 'New Prince Shri Bhavani College of Engineering and Technology';
+
+INSERT INTO hostel_fees (college_id, hostel_type, room_type, fee_per_year, mess_fee, total_amount)
+SELECT college_id, 'Girls Hostel', 'Non-AC', 70000, 28000, 98000 FROM colleges WHERE college_name = 'New Prince Shri Bhavani College of Engineering and Technology';
+
+-- Add One-Time Fees for New Prince
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Admission Fee', 10000, 'One-time admission charge', 'Non-Refundable' FROM colleges WHERE college_name = 'New Prince Shri Bhavani College of Engineering and Technology';
+
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Caution Deposit (Refundable)', 5000, 'Refundable security deposit', 'Refundable' FROM colleges WHERE college_name = 'New Prince Shri Bhavani College of Engineering and Technology';
+
+INSERT INTO one_time_fees (college_id, fee_name, amount, purpose, status)
+SELECT college_id, 'Hostel Admission Fee', 5000, 'One-time hostel processing fee', 'Non-Refundable' FROM colleges WHERE college_name = 'New Prince Shri Bhavani College of Engineering and Technology';
+
+-- Add Mess Fees (New Table)
+INSERT INTO mess_fees (college_name, place, mess_type, fee_per_year) VALUES
+('New Prince Shri Bhavani College of Engineering and Technology', 'Chennai', 'Veg', 45000),
+('New Prince Shri Bhavani College of Engineering and Technology', 'Chennai', 'Non-Veg', 50000);

@@ -198,7 +198,6 @@ CREATE TABLE admin (
 ```
 
 ### Admin Login API
-
 * `POST /api/admin/login`
 * Validates admin credentials using SQL
 * Uses hashed passwords for security

@@ -195,9 +195,9 @@ function AdminDashboard() {
               {colleges.map(c => (
                 <div key={c.college_id} className="glass" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.25rem 2rem', background: 'rgba(255,255,255,0.03)' }}>
                   <div>
-                    <span style={{ fontWeight: '700', fontSize: '1.1rem' }}>{c.college_name}</span>
+                    <span style={{ fontWeight: '600', fontSize: '20px', lineHeight: '1.3' }}>{c.college_name}</span>
                     <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
-                      {c.degree} • {c.district} • <span style={{ color: 'white' }}>₹{c.fees.toLocaleString()}</span> • Hostel: ₹{c.hostel_fees?.toLocaleString() || '0'} • One‑Time: ₹{c.one_time_fees?.toLocaleString() || '0'}
+                      {c.degree} • {c.district} • <span style={{ color: 'white' }}>₹{c.fees.toLocaleString()}</span>
                     </div>
                   </div>
                   <div style={{ display: 'flex', gap: '0.5rem' }}>
