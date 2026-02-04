@@ -225,7 +225,7 @@ function Home() {
     <div className="container animate-fade-in">
       {/* Hero Section */}
       <div className="hero">
-        <h1 className="gradient-text">Find Your Dream College</h1>
+        <h1 className="gradient-text">Advanced Academic Guidance</h1>
         <p>Compare fees, explore campuses, and make the right choice for your future across multiple districts and degrees.</p>
 
         {/* New Feature Buttons */}
@@ -236,6 +236,12 @@ function Home() {
           >
             {showCategories ? 'Hide Categories' : '🎓 College Categories'}
           </button>
+
+          <Link to="/career">
+            <button className="btn btn-outline" style={{ border: '1px solid #a78bfa', color: '#a78bfa' }}>
+              🎯 Course Suggestions
+            </button>
+          </Link>
 
           <button
             className={`btn ${activeLevel === 'UG' ? 'btn-primary' : 'btn-outline'}`}
